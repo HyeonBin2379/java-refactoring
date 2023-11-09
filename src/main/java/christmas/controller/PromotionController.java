@@ -13,6 +13,10 @@ public class PromotionController {
     }
 
     public void run() {
+        outputView.printStart();
+        String dateInput = inputView.inputDate();
+        String orderInput = inputView.inputMenuOrder();
+
         outputView.printMenu();
         outputView.printBeforeDiscount();
         outputView.printGiveaway();
