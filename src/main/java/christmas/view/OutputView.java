@@ -1,5 +1,6 @@
 package christmas.view;
 
+import static christmas.constants.message.MessageFormat.PREVIEW_TITLE_FORMAT;
 import static christmas.constants.message.Title.AFTER_DISCOUNT;
 import static christmas.constants.message.Title.BEFORE_DISCOUNT;
 import static christmas.constants.message.Title.BENEFIT_DETAIL;
@@ -9,6 +10,9 @@ import static christmas.constants.message.Title.MENU;
 import static christmas.constants.message.Title.TOTAL_BENEFIT;
 
 public class OutputView {
+    public void printPreview(int date) {
+        System.out.printf(PREVIEW_TITLE_FORMAT, date);
+    }
     public void printMenu() {
         System.out.println(MENU.getTitle());
     }
