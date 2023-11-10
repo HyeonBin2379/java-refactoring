@@ -66,10 +66,10 @@ public class PromotionController {
 
         int totalBenefit = 0;
         for (Event eventName : eventTable.keySet()) {
-            totalBenefit += eventTable.get(eventName);
+            totalBenefit -= eventTable.get(eventName);
         }
 
-        int afterDiscount = beforeDiscount + totalBenefit + totalGiveAway;
+        int afterDiscount = beforeDiscount - totalBenefit + totalGiveAway;
 
         outputView.printPreview(date.getDate());
         outputView.printOrderedMenu(totalOrder);

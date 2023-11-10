@@ -12,6 +12,10 @@ import static christmas.constants.message.Title.EVENT_BADGE;
 import static christmas.constants.message.Title.GIVEAWAY;
 import static christmas.constants.message.Title.MENU;
 import static christmas.constants.message.Title.TOTAL_BENEFIT;
+import static christmas.model.EventBadge.NONE;
+import static christmas.model.EventBadge.SANTA;
+import static christmas.model.EventBadge.STAR;
+import static christmas.model.EventBadge.TREE;
 
 import christmas.model.Event;
 import christmas.model.menu.Menu;
@@ -73,5 +77,18 @@ public class OutputView {
 
     public void printEventBadge(int totalBenefit) {
         System.out.println(EVENT_BADGE.getTitle());
+        if (totalBenefit >= 5000 && totalBenefit < 10000) {
+            System.out.println(STAR.getBadge());
+            return;
+        }
+        if (totalBenefit >= 10000 && totalBenefit < 20000) {
+            System.out.println(TREE.getBadge());
+            return;
+        }
+        if (totalBenefit >= 20000) {
+            System.out.println(SANTA.getBadge());
+            return;
+        }
+        System.out.println(NONE.getBadge());
     }
 }
