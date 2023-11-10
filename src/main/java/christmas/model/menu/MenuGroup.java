@@ -22,24 +22,24 @@ public enum MenuGroup {
         return menuNames;
     }
     public static Map<MenuGroup, Integer> getCountsByGroup(Map<Menu, Integer> orderTable) {
-        Map<MenuGroup, Integer> countTable = new EnumMap<>(MenuGroup.class);
+        Map<MenuGroup, Integer> countTable = initializeCountTable();
         for (Menu menuName : orderTable.keySet()) {
             MenuGroup group = findMenuGroup(menuName);
-            countTable.put(group, countTable.getOrDefault(group,0)+1);
+            countTable.put(group, countTable.getOrDefault(group, 0)+orderTable.get(menuName));
+        }
+        return countTable;
+    }
+    private static Map<MenuGroup, Integer> initializeCountTable() {
+        Map<MenuGroup, Integer> countTable = new EnumMap<>(MenuGroup.class);
+        for (MenuGroup group : MenuGroup.values()) {
+            countTable.put(group, 0);
         }
         return countTable;
     }
     private static MenuGroup findMenuGroup(Menu menu) {
         return Arrays.stream(MenuGroup.values())
-                .filter(menuGroup -> menuGroup.hasMenu(menu))
-                .findAny()
+                .filter(menuGroup -> menuGroup.menuNames.contains(menu))
+                .findFirst()
                 .orElse(NONE);
-    }
-    private boolean hasMenu(Menu target) {
-        for (Menu menu : menuNames) {
-            if (menu == target)
-                return true;
-        }
-        return false;
     }
 }

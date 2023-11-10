@@ -27,7 +27,7 @@ public enum Menu {
 
     public static Menu findMenuName(String order) {
         return Arrays.stream(Menu.values())
-                .filter(menu -> order.equals(menu.name))
+                .filter(menu -> menu.name.equals(order))
                 .findAny()
                 .orElse(NONE);
     }
