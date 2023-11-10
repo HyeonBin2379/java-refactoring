@@ -1,5 +1,6 @@
 package christmas.util;
 
+import static christmas.constants.message.ErrorMessage.INVALID_ORDER;
 import static christmas.model.menu.MenuGroup.BEVERAGE;
 
 import christmas.model.menu.Menu;
@@ -7,17 +8,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class Validation {
-
-    public static void validateBlank(String input) {
-        if (input.isBlank()) {
-            throw new IllegalArgumentException();
-        }
-        if (input.contains(" ")) {
-            throw new IllegalArgumentException();
-        }
-    }
-
+public class OrderValidator {
     public static void validateComma(String input) {
         validateFirstOrLastComma(input);
         validateContinuousComma(input);
@@ -26,35 +17,18 @@ public class Validation {
     private static void validateFirstOrLastComma(String input) {
         int lastIndex = input.length() - 1;
         if (input.charAt(0) == ',' || input.charAt(lastIndex) == ',') {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
         }
     }
 
     private static void validateContinuousComma(String input) {
         if (input.contains(",,")) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
         }
     }
-
-    public static int validateInteger(String input) {
-        int valid;
-        try {
-            valid = Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException();
-        }
-        return valid;
-    }
-
-    public static void validateDateRange(int date) {
-        if (date < 1 || date > 31) {
-            throw new IllegalArgumentException();
-        }
-    }
-
     public static String[] validateDash(String token) {
         if (isNotIncluded(token, "-")) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
         }
         return token.split("-", 2);
     }
@@ -72,26 +46,34 @@ public class Validation {
     private static Menu validatePossibleMenu(String menuName) {
         Menu foundMenuName = Menu.findMenuName(menuName);
         if (foundMenuName == Menu.NONE) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
         }
         return foundMenuName;
     }
 
     private static void validateDuplicatedMenuName(String menuName, Map<Menu, Integer> orderTable) {
         if (orderTable.containsKey(Menu.findMenuName(menuName))) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
         }
     }
 
     public static int validateQuantity(String token) {
-        int quantity = validateInteger(token);
+        int quantity = validateQuantityInteger(token);
         validatePositive(quantity);
         return quantity;
     }
-
+    private static int validateQuantityInteger(String input) {
+        int valid;
+        try {
+            valid = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
+        }
+        return valid;
+    }
     private static void validatePositive(int quantity) {
         if (quantity <= 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
         }
     }
 
@@ -102,14 +84,14 @@ public class Validation {
 
     private static void validateOverOrderLimits(int totalCounts) {
         if (totalCounts > 20) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
         }
     }
 
     private static void validateOnlyBeverage(Map<Menu, Integer> orderTable) {
         Set<Menu> beverage = new HashSet<>(BEVERAGE.getList());
         if (beverage.containsAll(orderTable.keySet())) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
         }
     }
 }
