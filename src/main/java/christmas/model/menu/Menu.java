@@ -1,4 +1,4 @@
-package christmas.constants.menu;
+package christmas.model.menu;
 
 import java.util.Arrays;
 
@@ -30,6 +30,9 @@ public enum Menu {
                 .filter(menu -> order.equals(menu.name))
                 .findAny()
                 .orElse(NONE);
+    }
+    public String getName() {
+        return name;
     }
     public int getPrice() {
         return price;
