@@ -1,6 +1,7 @@
 package christmas.view;
 
 import static christmas.constants.message.IOMessageConstants.START_MESSAGE;
+import static christmas.constants.message.MessageFormat.BENEFIT_FORMAT;
 import static christmas.constants.message.MessageFormat.MENU_FORMAT;
 import static christmas.constants.message.MessageFormat.MONEY_FORMAT;
 import static christmas.constants.message.MessageFormat.PREVIEW_TITLE_FORMAT;
@@ -12,6 +13,7 @@ import static christmas.constants.message.Title.GIVEAWAY;
 import static christmas.constants.message.Title.MENU;
 import static christmas.constants.message.Title.TOTAL_BENEFIT;
 
+import christmas.model.Event;
 import christmas.model.menu.Menu;
 import java.util.Map;
 
@@ -46,8 +48,17 @@ public class OutputView {
         }
     }
 
-    public void printBenefitDetails() {
+    public void printBenefitDetails(Map<Event, Integer> totalEvent) {
         System.out.println(BENEFIT_DETAIL.getTitle());
+        if (totalEvent.isEmpty()) {
+            System.out.println("없음");
+            return;
+        }
+
+        for (Event event : totalEvent.keySet()) {
+            String money = String.format(MONEY_FORMAT, totalEvent.get(event));
+            System.out.printf(BENEFIT_FORMAT, event.getEventName(), money);
+        }
     }
 
     public void printTotalBenefit(int totalBenefit) {
