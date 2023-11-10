@@ -5,11 +5,13 @@ import static christmas.model.Event.GIVEAWAY;
 import static christmas.model.Event.SPECIAL;
 import static christmas.model.Event.WEEKDAY;
 import static christmas.model.Event.WEEKEND;
+import static christmas.model.menu.Menu.CHAMPAIGN;
 import static christmas.model.menu.MenuGroup.DESSERT;
 import static christmas.model.menu.MenuGroup.MAIN_DISH;
 
 import camp.nextstep.edu.missionutils.Console;
 import christmas.model.Event;
+import christmas.model.Giveaway;
 import christmas.model.ReservedDate;
 import christmas.model.menu.Menu;
 import christmas.model.menu.MenuGroup;
@@ -34,15 +36,12 @@ public class PromotionController {
         outputView.printStart();
         ReservedDate date = getValidDate();
         Map<Menu, Integer> totalOrder = getValidTotalOrder();
-        int beforeDiscount = getValidTotalCost(totalOrder);
-        Console.close();
+        int beforeDiscount = getTotalCost(totalOrder);
+        outputView.printPreview(date.getDate());
+        outputView.printOrderedMenu(totalOrder);
+        outputView.printBeforeDiscount(beforeDiscount);
 
-        Map<Menu, Integer> giveAwayMenu = getGiveAwayMenu(beforeDiscount);
-        int totalGiveAway = 0;
-        for (Menu menu : giveAwayMenu.keySet()) {
-            totalGiveAway += menu.getPrice()*giveAwayMenu.get(menu);
-        }
-
+        Giveaway giveaway = new Giveaway();
         Map<MenuGroup, Integer> countTable = MenuGroup.getCountsByGroup(totalOrder);
         Map<Event, Integer> eventTable = new LinkedHashMap<>();
         if (beforeDiscount >= 10000) {
@@ -60,25 +59,21 @@ public class PromotionController {
                 eventTable.put(WEEKDAY, -2023*countTable.get(DESSERT));
             }
             if (beforeDiscount >= 120000) {
-                eventTable.put(GIVEAWAY, -totalGiveAway);
+                giveaway.add(CHAMPAIGN, 1);
+                eventTable.put(GIVEAWAY, -giveaway.getTotalSum());
             }
         }
-
         int totalBenefit = 0;
         for (Event eventName : eventTable.keySet()) {
             totalBenefit -= eventTable.get(eventName);
         }
-
-        int afterDiscount = beforeDiscount - totalBenefit + totalGiveAway;
-
-        outputView.printPreview(date.getDate());
-        outputView.printOrderedMenu(totalOrder);
-        outputView.printBeforeDiscount(beforeDiscount);
-        outputView.printGiveaway(giveAwayMenu);
+        int afterDiscount = beforeDiscount - totalBenefit + giveaway.getTotalSum();
+        outputView.printGiveaway(giveaway.getTable());
         outputView.printBenefitDetails(eventTable);
         outputView.printTotalBenefit(totalBenefit);
         outputView.printAfterDiscount(afterDiscount);
         outputView.printEventBadge(totalBenefit);
+        Console.close();
     }
 
     public ReservedDate getValidDate() {
@@ -98,28 +93,14 @@ public class PromotionController {
         while (true) {
             try {
                 totalOrder = getTotalOrder(inputView.inputMenuOrder());
+                int totalCounts = getTotalCounts(totalOrder);
+                OrderValidator.validateTotalOrder(totalCounts, totalOrder);
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
         return totalOrder;
-    }
-    public int getValidTotalCost(Map<Menu, Integer> totalOrder) {
-        int totalCost = 0;
-        while (true) {
-            try {
-                int totalCounts = getTotalCounts(totalOrder);
-                totalCost = getTotalCost(totalOrder);
-                OrderValidator.validateTotalOrder(totalCounts, totalOrder);
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-                totalOrder.clear();
-                totalOrder = getValidTotalOrder();
-            }
-        }
-        return totalCost;
     }
     public Map<Menu, Integer> getTotalOrder(List<String> allOrders) {
         Map<Menu, Integer> totalOrder = new EnumMap<>(Menu.class);
@@ -144,12 +125,5 @@ public class PromotionController {
             totalCost += menuName.getPrice() * totalOrder.get(menuName);
         }
         return totalCost;
-    }
-    public Map<Menu, Integer> getGiveAwayMenu(int totalCost) {
-        Map<Menu, Integer> giveAwayMenu = new EnumMap<>(Menu.class);
-        if (totalCost >= 120000) {
-            giveAwayMenu.put(Menu.CHAMPAIGN, 1);
-        }
-        return giveAwayMenu;
     }
 }
