@@ -1,6 +1,8 @@
 package christmas.util;
 
 import static christmas.constants.message.ErrorMessage.INVALID_ORDER;
+import static christmas.constants.message.ErrorMessage.ONLY_BEVERAGE;
+import static christmas.constants.message.ErrorMessage.TOO_MANY_ORDER;
 import static christmas.model.menu.MenuGroup.BEVERAGE;
 
 import christmas.model.menu.Menu;
@@ -84,14 +86,14 @@ public class OrderValidator {
 
     private static void validateOverOrderLimits(int totalCounts) {
         if (totalCounts > 20) {
-            throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
+            throw new IllegalArgumentException(TOO_MANY_ORDER.getErrorMsg());
         }
     }
 
     private static void validateOnlyBeverage(Map<Menu, Integer> orderTable) {
         Set<Menu> beverage = new HashSet<>(BEVERAGE.getList());
         if (beverage.containsAll(orderTable.keySet())) {
-            throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
+            throw new IllegalArgumentException(ONLY_BEVERAGE.getErrorMsg());
         }
     }
 }

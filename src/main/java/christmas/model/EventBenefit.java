@@ -53,12 +53,14 @@ public class EventBenefit {
     }
     private void getWeekdayDiscount(Map<MenuGroup, Integer> countTable) {
         if (date % 7 != FRI.getDay() && date % 7 != SAT.getDay()) {
-            events.put(WEEKDAY, -(2023*countTable.get(DESSERT)));
+            int count = 2023*countTable.get(DESSERT)*(-1);
+            events.put(WEEKDAY, count);
         }
     }
     private void getWeekendDiscount(Map<MenuGroup, Integer> countTable) {
         if (date % 7 == FRI.getDay() || date % 7 == SAT.getDay()) {
-            events.put(WEEKEND, -(2023*countTable.get(MAIN_DISH)));
+            int count = 2023*countTable.get(MAIN_DISH)*(-1);
+            events.put(WEEKEND, count);
         }
     }
     private void getGiveaway(int beforeDiscount, Giveaway giveaway) {
