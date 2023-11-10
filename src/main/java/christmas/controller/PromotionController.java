@@ -3,7 +3,7 @@ package christmas.controller;
 import static christmas.constants.message.ErrorMessage.INVALID_DATE;
 import static christmas.constants.message.ErrorMessage.INVALID_ORDER;
 
-import christmas.constants.menu.Menu;
+import christmas.model.menu.Menu;
 import christmas.model.ReservedDate;
 import christmas.util.Validation;
 import christmas.view.InputView;
@@ -24,22 +24,19 @@ public class PromotionController {
     public void run() {
         outputView.printStart();
         ReservedDate date = getValidDate();
-        Map<Menu, Integer> totalOrder = new EnumMap<>(Menu.class);
-        try {
-            totalOrder = getTotalOrder(inputView.inputMenuOrder());
-        } catch (IllegalArgumentException e) {
-            System.out.println(INVALID_ORDER.getErrorMsg());
-        }
+        Map<Menu, Integer> totalOrder = getValidTotalOrder();
         int totalCost = getValidTotalCost(totalOrder);
+        Map<Menu, Integer> giveAwayMenu = getGiveAwayMenu(totalCost);
+        int totalBenefit = 0;
 
         outputView.printPreview(date.getDate());
-        outputView.printMenu();
-        outputView.printBeforeDiscount();
-        outputView.printGiveaway();
+        outputView.printOrderedMenu(totalOrder);
+        outputView.printBeforeDiscount(totalCost);
+        outputView.printGiveaway(giveAwayMenu);
         outputView.printBenefitDetails();
-        outputView.printTotalBenefit();
-        outputView.printAfterDiscount();
-        outputView.printEventBadge();
+        outputView.printTotalBenefit(totalBenefit);
+        outputView.printAfterDiscount(totalCost);
+        outputView.printEventBadge(totalBenefit);
     }
 
     public ReservedDate getValidDate() {
@@ -62,7 +59,7 @@ public class PromotionController {
                 totalOrder = getTotalOrder(allOrders);
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println(INVALID_ORDER);
+                System.out.println(INVALID_ORDER.getErrorMsg());
             }
         }
         return totalOrder;
@@ -75,6 +72,8 @@ public class PromotionController {
             Validation.validateTotalOrder(totalCounts, totalOrder);
         } catch (IllegalArgumentException e) {
             System.out.println(INVALID_ORDER.getErrorMsg());
+            totalOrder.clear();
+            totalOrder = getValidTotalOrder();
         }
         return totalCost;
     }
@@ -101,5 +100,12 @@ public class PromotionController {
             totalCost += menuName.getPrice() * totalOrder.get(menuName);
         }
         return totalCost;
+    }
+    public Map<Menu, Integer> getGiveAwayMenu(int totalCost) {
+        Map<Menu, Integer> giveAwayMenu = new EnumMap<>(Menu.class);
+        if (totalCost >= 120000) {
+            giveAwayMenu.put(Menu.CHAMPAIGN, 1);
+        }
+        return giveAwayMenu;
     }
 }

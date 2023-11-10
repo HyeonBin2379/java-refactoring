@@ -1,8 +1,8 @@
 package christmas.util;
 
-import static christmas.constants.menu.MenuGroup.BEVERAGE;
+import static christmas.model.menu.MenuGroup.BEVERAGE;
 
-import christmas.constants.menu.Menu;
+import christmas.model.menu.Menu;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -78,7 +78,7 @@ public class Validation {
     }
 
     private static void validateDuplicatedMenuName(String menuName, Map<Menu, Integer> orderTable) {
-        if (orderTable.containsKey(Menu.valueOf(menuName))) {
+        if (orderTable.containsKey(Menu.findMenuName(menuName))) {
             throw new IllegalArgumentException();
         }
     }
