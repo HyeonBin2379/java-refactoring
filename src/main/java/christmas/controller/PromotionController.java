@@ -4,6 +4,7 @@ import static christmas.constants.message.ErrorMessage.INVALID_DATE;
 import static christmas.constants.message.ErrorMessage.INVALID_ORDER;
 
 import christmas.constants.menu.Menu;
+import christmas.model.ReservedDate;
 import christmas.util.Validation;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -22,7 +23,7 @@ public class PromotionController {
 
     public void run() {
         outputView.printStart();
-        int date = getValidDate();
+        ReservedDate date = getValidDate();
         Map<Menu, Integer> totalOrder = new EnumMap<>(Menu.class);
         try {
             totalOrder = getTotalOrder(inputView.inputMenuOrder());
@@ -31,7 +32,7 @@ public class PromotionController {
         }
         int totalCost = getValidTotalCost(totalOrder);
 
-        outputView.printPreview(date);
+        outputView.printPreview(date.getDate());
         outputView.printMenu();
         outputView.printBeforeDiscount();
         outputView.printGiveaway();
@@ -41,8 +42,8 @@ public class PromotionController {
         outputView.printEventBadge();
     }
 
-    public int getValidDate() {
-        int date;
+    public ReservedDate getValidDate() {
+        ReservedDate date;
         while (true) {
             try {
                 date = inputView.inputDate();
