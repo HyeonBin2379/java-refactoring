@@ -1,4 +1,4 @@
-package christmas.util;
+package christmas.validator;
 
 import static christmas.constants.message.ErrorMessage.INVALID_DATE;
 

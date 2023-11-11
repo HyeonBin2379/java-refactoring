@@ -1,6 +1,7 @@
 package christmas.model;
 
-import christmas.util.DateValidator;
+import static christmas.validator.DateValidator.validateDateInteger;
+import static christmas.validator.DateValidator.validateDateRange;
 
 public class OrderDate {
     private final int date;
@@ -10,8 +11,8 @@ public class OrderDate {
     }
 
     private int validate(String input) {
-        int validDate = DateValidator.validateDateInteger(input);
-        DateValidator.validateDateRange(validDate);
+        int validDate = validateDateInteger(input);
+        validateDateRange(validDate);
         return validDate;
     }
     public int getDate() {

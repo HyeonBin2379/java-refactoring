@@ -1,9 +1,9 @@
 package christmas.model;
 
-import static christmas.util.OrderValidator.validateDash;
-import static christmas.util.OrderValidator.validateMenuName;
-import static christmas.util.OrderValidator.validateQuantity;
-import static christmas.util.OrderValidator.validateTotalOrder;
+import static christmas.validator.OrderFormatValidator.validateDash;
+import static christmas.validator.OrderValidator.validateMenuName;
+import static christmas.validator.OrderValidator.validateQuantity;
+import static christmas.validator.OrderValidator.validateTotalOrder;
 
 import christmas.model.menu.Menu;
 import java.util.Collections;
