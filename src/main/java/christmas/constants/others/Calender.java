@@ -1,13 +1,15 @@
-package christmas.model;
+package christmas.constants.others;
 
-public enum DaysOfWeek {
+public enum Calender {
     FRI(1),
     SAT(2),
-    SUN(3);
+    SUN(3),
+    ONE_WEEK(7),
+    X_MAS(25);
 
     private final int day;
 
-    DaysOfWeek(int day) {
+    Calender(int day) {
         this.day = day;
     }
 
