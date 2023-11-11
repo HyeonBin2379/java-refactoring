@@ -1,4 +1,4 @@
-package christmas.model;
+package christmas.model.event;
 
 public enum EventBadge {
     STAR("별"),

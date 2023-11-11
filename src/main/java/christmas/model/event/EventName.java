@@ -1,6 +1,6 @@
-package christmas.model;
+package christmas.model.event;
 
-public enum Event {
+public enum EventName {
     CHRISTMAS("크리스마스 디데이 할인"),
     SPECIAL("특별 할인"),
     WEEKDAY("평일 할인"),
@@ -9,7 +9,7 @@ public enum Event {
 
     private final String eventName;
 
-    Event(String eventName) {
+    EventName(String eventName) {
         this.eventName = eventName;
     }
 
