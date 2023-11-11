@@ -6,7 +6,7 @@ import christmas.model.menu.Menu;
 import java.util.Map;
 
 public class OrderFormatValidator {
-    public static String[] validateDash(String token) {
+    public static String[] validateHyphen(String token) {
         if (isNotIncluded(token)) {
             throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
         }

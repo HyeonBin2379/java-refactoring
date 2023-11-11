@@ -1,6 +1,6 @@
 package christmas.model;
 
-import static christmas.validator.OrderFormatValidator.validateDash;
+import static christmas.validator.OrderFormatValidator.validateHyphen;
 import static christmas.validator.OrderValidator.validateMenuName;
 import static christmas.validator.OrderValidator.validateQuantity;
 import static christmas.validator.OrderValidator.validateTotalOrder;
@@ -26,7 +26,7 @@ public class Order {
         validateTotalOrder(getTotalCounts(), orderTable);
     }
     private void setValidOrderToken(String order) {
-        String[] tokens = validateDash(order);
+        String[] tokens = validateHyphen(order);
         Menu menuName = validateMenuName(tokens[0], orderTable);
         int quantity = validateQuantity(tokens[1]);
         orderTable.put(menuName, quantity);
