@@ -29,17 +29,17 @@ public enum MenuGroup {
         }
         return countTable;
     }
+    public static MenuGroup findMenuGroup(Menu menu) {
+        return Arrays.stream(MenuGroup.values())
+                .filter(menuGroup -> menuGroup.menuNames.contains(menu))
+                .findFirst()
+                .orElse(NONE);
+    }
     private static Map<MenuGroup, Integer> initializeCountTable() {
         Map<MenuGroup, Integer> countTable = new EnumMap<>(MenuGroup.class);
         for (MenuGroup group : MenuGroup.values()) {
             countTable.put(group, 0);
         }
         return countTable;
-    }
-    private static MenuGroup findMenuGroup(Menu menu) {
-        return Arrays.stream(MenuGroup.values())
-                .filter(menuGroup -> menuGroup.menuNames.contains(menu))
-                .findFirst()
-                .orElse(NONE);
     }
 }
