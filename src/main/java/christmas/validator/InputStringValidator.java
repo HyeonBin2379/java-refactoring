@@ -11,7 +11,7 @@ public class InputStringValidator {
         validateBlankOrSpace(input);
         validateComma(input);
     }
-    private static void validateBlankOrSpace(String input) {
+    public static void validateBlankOrSpace(String input) {
         if (input.isBlank()) {
             throw new IllegalArgumentException(BLANK_INPUT.getErrorMsg());
         }

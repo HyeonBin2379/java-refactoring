@@ -19,13 +19,16 @@ public class Order {
         this.orderTable = new EnumMap<>(Menu.class);
     }
 
-    public void setOrderTable(List<String> allOrders) {
-        for (String order : allOrders) {
-            setValidOrderToken(order);
-        }
+    public void setValidOrderTable(List<String> allOrders) {
+        setAllOrderToken(allOrders);
         validateTotalOrder(getTotalCounts(), orderTable);
     }
-    private void setValidOrderToken(String order) {
+    public void setAllOrderToken(List<String> allOrders) {
+        for (String order : allOrders) {
+            setEachOrderToken(order);
+        }
+    }
+    private void setEachOrderToken(String order) {
         String[] tokens = validateHyphen(order);
         Menu menuName = validateMenuName(tokens[0], orderTable);
         int quantity = validateQuantity(tokens[1]);

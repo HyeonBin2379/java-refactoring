@@ -7,13 +7,22 @@ import java.util.Map;
 
 public class OrderFormatValidator {
     public static String[] validateHyphen(String token) {
-        if (isNotIncluded(token)) {
-            throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
-        }
+        validateHyphenNotContained(token);
+        validateContinuousHyphen(token);
         return token.split("-", 2);
     }
-    public static boolean isNotIncluded(String token) {
+    private static void validateHyphenNotContained(String token) {
+        if (isHyphenNotIncluded(token)) {
+            throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
+        }
+    }
+    private static boolean isHyphenNotIncluded(String token) {
         return !token.contains("-");
+    }
+    private static void validateContinuousHyphen(String token) {
+        if (token.contains("--")) {
+            throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
+        }
     }
 
     public static Menu validatePossibleMenu(String menuName) {
@@ -23,7 +32,7 @@ public class OrderFormatValidator {
         }
         return foundMenuName;
     }
-    public static void validateDuplicatedMenuName(String menuName, Map<Menu, Integer> orderTable) {
+    public static void validateDuplicatedMenu(String menuName, Map<Menu, Integer> orderTable) {
         if (orderTable.containsKey(Menu.findMenuName(menuName))) {
             throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
         }

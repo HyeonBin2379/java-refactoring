@@ -55,7 +55,7 @@ public class PromotionController {
     private Map<Menu, Integer> getValidOrder(Order order) {
         while (true) {
             try {
-                order.setOrderTable(inputView.inputMenuOrder());
+                order.setValidOrderTable(inputView.inputMenuOrder());
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
