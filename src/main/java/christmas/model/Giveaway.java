@@ -1,6 +1,7 @@
 package christmas.model;
 
 import christmas.model.menu.Menu;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -12,13 +13,13 @@ public class Giveaway {
         this.giveaway = new EnumMap<>(Menu.class);
     }
 
-    public void add(Menu menuName, int quantity) {
+    public void addMenu(Menu menuName, int quantity) {
         giveaway.put(menuName, quantity);
     }
     public Map<Menu, Integer> getTable() {
-        return giveaway;
+        return Collections.unmodifiableMap(giveaway);
     }
-    public int getTotalSum() {
+    public int getSum() {
         int totalGiveAway = 0;
         for (Menu menu : giveaway.keySet()) {
             totalGiveAway += menu.getPrice()*giveaway.get(menu);

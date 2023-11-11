@@ -21,12 +21,15 @@ public class Order {
 
     public void setOrderTable(List<String> allOrders) {
         for (String order : allOrders) {
-            String[] tokens = validateDash(order);
-            Menu menuName = validateMenuName(tokens[0], orderTable);
-            int quantity = validateQuantity(tokens[1]);
-            orderTable.put(menuName, quantity);
+            setValidOrderToken(order);
         }
         validateTotalOrder(getTotalCounts(), orderTable);
+    }
+    private void setValidOrderToken(String order) {
+        String[] tokens = validateDash(order);
+        Menu menuName = validateMenuName(tokens[0], orderTable);
+        int quantity = validateQuantity(tokens[1]);
+        orderTable.put(menuName, quantity);
     }
 
     public int getTotalCounts() {
