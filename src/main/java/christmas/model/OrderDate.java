@@ -2,10 +2,10 @@ package christmas.model;
 
 import christmas.util.DateValidator;
 
-public class ReservedDate {
+public class OrderDate {
     private final int date;
 
-    public ReservedDate(String input) {
+    public OrderDate(String input) {
         this.date = validate(input);
     }
 
