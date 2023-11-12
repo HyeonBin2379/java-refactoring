@@ -14,21 +14,23 @@ import static christmas.constants.message.Title.GIVEAWAY;
 import static christmas.constants.message.Title.MENU;
 import static christmas.constants.message.Title.TOTAL_BENEFIT;
 
-import christmas.model.event.Giveaway;
 import christmas.model.event.EventBadge;
 import christmas.model.event.EventBenefit;
 import christmas.model.event.EventName;
+import christmas.model.event.Giveaway;
 import christmas.model.menu.Menu;
+import christmas.model.order.Order;
+import christmas.model.order.OrderDate;
 import java.util.Map;
 
 public class OutputView {
     public void printStart() {
         System.out.println(START_MESSAGE);
     }
-    public void printOrderDetail(int date, Map<Menu, Integer> order, int totalCost) {
-        printPreview(date);
-        printMenu(order);
-        printBeforeDiscount(totalCost);
+    public void printOrderDetail(OrderDate date, Order order) {
+        printPreview(date.getDate());
+        printMenu(order.getOrder());
+        printBeforeDiscount(order.getTotalCost());
     }
     private void printPreview(int date) {
         System.out.printf(PREVIEW_TITLE_FORMAT, date);

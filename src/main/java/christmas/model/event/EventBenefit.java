@@ -24,14 +24,14 @@ public class EventBenefit {
         addEventDiscount(beforeDiscount);
         addEventGiveaway(giveaway);
     }
-    private void addEventDiscount(int beforeDiscount) {
+    public void addEventDiscount(int beforeDiscount) {
         Map<MenuGroup, Integer> countTable = MenuGroup.getCountsByGroup(totalOrder);
 
         if (beforeDiscount >= 10000) {
             Discounts.getBenefit(date, events, countTable);
         }
     }
-    private void addEventGiveaway(Giveaway giveaway) {
+    public void addEventGiveaway(Giveaway giveaway) {
         events.put(GIVEAWAY, (-1)*giveaway.getSum());
     }
 

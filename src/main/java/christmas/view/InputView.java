@@ -7,17 +7,16 @@ import static christmas.validator.InputStringValidator.validateDateString;
 import static christmas.validator.InputStringValidator.validateOrderString;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.model.order.OrderDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class InputView {
 
-    public OrderDate inputDate() {
+    public String inputDate() {
         System.out.println(DATE_INPUT);
         String input = Console.readLine();
         validateDateString(input);
-        return new OrderDate(input);
+        return input;
     }
     public List<String> inputMenuOrder() {
         System.out.println(MENU_ORDER_INPUT + ORDER_EXAMPLE);
