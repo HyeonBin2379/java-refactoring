@@ -21,15 +21,24 @@ public class OrderController {
 
     public BenefitController start() {
         outputView.printStart();
-        getValidDateAndOrder();
+        getValidDate();
+        getValidOrder();
         outputView.printOrderDetail(date, order);
         return new BenefitController(outputView, date, order);
     }
-
-    private void getValidDateAndOrder() {
+    private void getValidDate() {
         while (true) {
             try {
                 date.setValidDate(inputView.inputDate());
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    private void getValidOrder() {
+        while (true) {
+            try {
                 order.setValidOrderTable(inputView.inputMenuOrder());
                 break;
             } catch (IllegalArgumentException e) {
