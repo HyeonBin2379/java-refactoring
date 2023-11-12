@@ -16,10 +16,15 @@ public class Giveaway {
     }
 
     public void addMenu(String name, int quantity) {
-        if (beforeDiscount >= 120000) {
-            giveaway.put(Menu.findMenuName(name), quantity);
+        Menu menuName = Menu.findMenuName(name);
+        if (isMatchedCondition(menuName, quantity)) {
+            giveaway.put(menuName, quantity);
         }
     }
+    private boolean isMatchedCondition(Menu menuName, int quantity) {
+        return beforeDiscount >= 120000 && menuName != Menu.NONE && quantity > 0;
+    }
+
     public int getSum() {
         int totalGiveAway = 0;
         for (Menu menu : giveaway.keySet()) {
@@ -27,7 +32,8 @@ public class Giveaway {
         }
         return totalGiveAway;
     }
-    public Map<Menu, Integer> getTable() {
+
+    public Map<Menu, Integer> getGiveaway() {
         return Collections.unmodifiableMap(giveaway);
     }
 }
