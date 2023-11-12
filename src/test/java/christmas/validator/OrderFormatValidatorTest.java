@@ -1,7 +1,7 @@
 package christmas.validator;
 
 import static christmas.constants.message.ErrorMessage.INVALID_ORDER;
-import static christmas.model.menu.Menu.CHAMPAIGN;
+import static christmas.model.menu.Menu.CHAMPAGNE;
 import static christmas.model.menu.Menu.CHOCO_CAKE;
 import static christmas.model.menu.Menu.RED_WINE;
 import static christmas.model.menu.Menu.TAPAS;
@@ -83,7 +83,7 @@ class OrderFormatValidatorTest {
     }
 
     private static Stream<Arguments> sampleDuplicatedMenuName() {
-        Map<Menu, Integer> orderSample = Map.of(CHOCO_CAKE, 1, RED_WINE, 1, CHAMPAIGN, 1, TAPAS, 1);
+        Map<Menu, Integer> orderSample = Map.of(CHOCO_CAKE, 1, RED_WINE, 1, CHAMPAGNE, 1, TAPAS, 1);
         return Stream.of(
                 Arguments.of("초코케이크", orderSample),
                 Arguments.of("레드와인", orderSample),

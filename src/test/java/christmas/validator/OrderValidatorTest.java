@@ -1,6 +1,6 @@
 package christmas.validator;
 
-import static christmas.model.menu.Menu.CHAMPAIGN;
+import static christmas.model.menu.Menu.CHAMPAGNE;
 import static christmas.model.menu.Menu.RED_WINE;
 import static christmas.model.menu.Menu.ZERO_COKE;
 import static christmas.validator.OrderValidator.validateOnlyBeverage;
@@ -24,10 +24,10 @@ class OrderValidatorTest {
     @DisplayName("주문한 메뉴 개수의 총합이 20개를 초과하면 예외 발생")
     @ValueSource(strings = {"초코케이크-5,아이스크림-10,제로콜라-10", "크리스마스파스타-21"})
     void validateOverOrderLimits_test(String input) {
-        Order when = new Order();
-        when.setAllOrderToken(Arrays.asList(input.split(",")));
+        Order result = new Order();
+        result.setAllOrderToken(Arrays.asList(input.split(",")));
 
-        assertThatThrownBy(() -> validateOverOrderLimits(when.getTotalCounts()))
+        assertThatThrownBy(() -> validateOverOrderLimits(result.getTotalCounts()))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -42,11 +42,11 @@ class OrderValidatorTest {
         return Stream.of(
                 Arguments.of(Map.of(RED_WINE, 1)),
                 Arguments.of(Map.of(ZERO_COKE, 1)),
-                Arguments.of(Map.of(CHAMPAIGN, 1)),
+                Arguments.of(Map.of(CHAMPAGNE, 1)),
                 Arguments.of(Map.of(RED_WINE,1, ZERO_COKE, 1)),
-                Arguments.of(Map.of(RED_WINE, 1, CHAMPAIGN, 1)),
-                Arguments.of(Map.of(ZERO_COKE, 1, CHAMPAIGN, 1)),
-                Arguments.of(Map.of(RED_WINE, 1, ZERO_COKE, 1, CHAMPAIGN, 1))
+                Arguments.of(Map.of(RED_WINE, 1, CHAMPAGNE, 1)),
+                Arguments.of(Map.of(ZERO_COKE, 1, CHAMPAGNE, 1)),
+                Arguments.of(Map.of(RED_WINE, 1, ZERO_COKE, 1, CHAMPAGNE, 1))
         );
     }
 }
