@@ -32,6 +32,7 @@ public class Order {
         String[] tokens = validateHyphen(order);
         Menu menuName = validateMenuName(tokens[0], orderTable);
         int quantity = validateQuantity(tokens[1]);
+
         orderTable.put(menuName, quantity);
     }
 

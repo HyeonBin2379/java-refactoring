@@ -1,7 +1,7 @@
 package christmas.model.event;
 
 import static christmas.model.event.EventName.GIVEAWAY;
-import static christmas.model.menu.Menu.CHAMPAIGN;
+import static christmas.model.menu.Menu.CHAMPAGNE;
 
 import christmas.model.menu.Menu;
 import christmas.model.menu.MenuGroup;
@@ -36,7 +36,7 @@ public class EventBenefit {
     }
     public void getGiveawayBenefit(int beforeDiscount, Giveaway giveaway) {
         if (beforeDiscount >= 120000) {
-            giveaway.addMenu(CHAMPAIGN, 1);
+            giveaway.addMenu(CHAMPAGNE, 1);
             events.put(GIVEAWAY, -giveaway.getSum());
         }
     }

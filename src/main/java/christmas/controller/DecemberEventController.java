@@ -11,13 +11,13 @@ import christmas.view.OutputView;
 import java.util.Collections;
 import java.util.Map;
 
-public class PromotionController {
+public class DecemberEventController {
 
     private final InputView inputView;
     private final OutputView outputView;
     private final Order order;
 
-    public PromotionController(InputView inputView, OutputView outputView) {
+    public DecemberEventController(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.order = new Order();
