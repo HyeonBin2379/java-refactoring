@@ -1,9 +1,9 @@
 package christmas.controller;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.model.Giveaway;
-import christmas.model.Order;
-import christmas.model.OrderDate;
+import christmas.model.event.Giveaway;
+import christmas.model.order.Order;
+import christmas.model.order.OrderDate;
 import christmas.model.event.EventBenefit;
 import christmas.model.menu.Menu;
 import christmas.view.InputView;

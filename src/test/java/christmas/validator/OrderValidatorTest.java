@@ -7,7 +7,7 @@ import static christmas.validator.OrderValidator.validateOnlyBeverage;
 import static christmas.validator.OrderValidator.validateOverOrderLimits;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import christmas.model.Order;
+import christmas.model.order.Order;
 import christmas.model.menu.Menu;
 import java.util.Arrays;
 import java.util.Map;

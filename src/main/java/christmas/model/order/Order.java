@@ -1,4 +1,4 @@
-package christmas.model;
+package christmas.model.order;
 
 import static christmas.validator.OrderFormatValidator.validateHyphen;
 import static christmas.validator.OrderValidator.validateMenuName;

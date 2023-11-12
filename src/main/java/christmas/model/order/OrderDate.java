@@ -1,4 +1,4 @@
-package christmas.model;
+package christmas.model.order;
 
 import static christmas.validator.DateValidator.validateDateInteger;
 import static christmas.validator.DateValidator.validateDateRange;

@@ -7,7 +7,7 @@ import static christmas.validator.InputStringValidator.validateDateString;
 import static christmas.validator.InputStringValidator.validateOrderString;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.model.OrderDate;
+import christmas.model.order.OrderDate;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package christmas.model;
+package christmas.model.event;
 
 import static christmas.constants.others.Calender.X_MAS;
 import static christmas.constants.others.Calender.FRI;

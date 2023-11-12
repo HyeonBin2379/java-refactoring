@@ -14,7 +14,7 @@ import static christmas.constants.message.Title.GIVEAWAY;
 import static christmas.constants.message.Title.MENU;
 import static christmas.constants.message.Title.TOTAL_BENEFIT;
 
-import christmas.model.Giveaway;
+import christmas.model.event.Giveaway;
 import christmas.model.event.EventBadge;
 import christmas.model.event.EventBenefit;
 import christmas.model.event.EventName;

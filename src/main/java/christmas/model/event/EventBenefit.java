@@ -3,8 +3,6 @@ package christmas.model.event;
 import static christmas.model.event.EventName.GIVEAWAY;
 import static christmas.model.menu.Menu.CHAMPAIGN;
 
-import christmas.model.Discounts;
-import christmas.model.Giveaway;
 import christmas.model.menu.Menu;
 import christmas.model.menu.MenuGroup;
 import java.util.Collections;
