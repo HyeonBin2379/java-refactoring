@@ -1,7 +1,6 @@
 package christmas.model.event;
 
 import static christmas.model.event.EventName.GIVEAWAY;
-import static christmas.model.menu.Menu.CHAMPAGNE;
 
 import christmas.model.menu.Menu;
 import christmas.model.menu.MenuGroup;
@@ -21,25 +20,21 @@ public class EventBenefit {
         this.totalOrder = totalOrder;
     }
 
-    public void getEventDiscount(int beforeDiscount, Giveaway giveaway) {
+    public void addBenefit(int beforeDiscount, Giveaway giveaway) {
+        addEventDiscount(beforeDiscount);
+        addEventGiveaway(giveaway);
+    }
+    private void addEventDiscount(int beforeDiscount) {
         Map<MenuGroup, Integer> countTable = MenuGroup.getCountsByGroup(totalOrder);
+
         if (beforeDiscount >= 10000) {
-            getDiscountBenefit(countTable);
-            getGiveawayBenefit(beforeDiscount, giveaway);
+            Discounts.getBenefit(date, events, countTable);
         }
     }
-    private void getDiscountBenefit(Map<MenuGroup, Integer> countTable) {
-        Discounts.getChristmasDiscount(date, events);
-        Discounts.getSpecialDiscount(date, events);
-        Discounts.getWeekdayDiscount(date, events, countTable);
-        Discounts.getWeekendDiscount(date, events, countTable);
+    private void addEventGiveaway(Giveaway giveaway) {
+        events.put(GIVEAWAY, (-1)*giveaway.getSum());
     }
-    public void getGiveawayBenefit(int beforeDiscount, Giveaway giveaway) {
-        if (beforeDiscount >= 120000) {
-            giveaway.addMenu(CHAMPAGNE, 1);
-            events.put(GIVEAWAY, -giveaway.getSum());
-        }
-    }
+
     public int getTotalBenefit() {
         int totalBenefit = 0;
         for (EventName eventName : events.keySet()) {
