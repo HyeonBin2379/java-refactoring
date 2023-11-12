@@ -35,12 +35,16 @@ public class Discounts {
     }
     public static void getWeekdayDiscount(int date, Map<EventName, Integer> events, Map<MenuGroup, Integer> counts) {
         if (date % ONE_WEEK.getDay() != FRI.getDay() && date % ONE_WEEK.getDay() != SAT.getDay()) {
-            events.put(WEEKDAY, WEEKDAY.getDiscount(counts.get(DESSERT)));
+            if (counts.get(DESSERT) > 0) {
+                events.put(WEEKDAY, WEEKDAY.getDiscount(counts.get(DESSERT)));
+            }
         }
     }
     public static void getWeekendDiscount(int date, Map<EventName, Integer> events, Map<MenuGroup, Integer> counts) {
         if (date % ONE_WEEK.getDay() == FRI.getDay() || date % ONE_WEEK.getDay() == SAT.getDay()) {
-            events.put(WEEKEND, WEEKEND.getDiscount(counts.get(MAIN_DISH)));
+            if (counts.get(MAIN_DISH) > 0) {
+                events.put(WEEKEND, WEEKEND.getDiscount(counts.get(MAIN_DISH)));
+            }
         }
     }
 }
