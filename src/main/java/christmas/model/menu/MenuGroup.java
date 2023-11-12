@@ -7,16 +7,22 @@ import java.util.List;
 import java.util.Map;
 
 public enum MenuGroup {
-    APPETIZER(Arrays.asList(Menu.SOUP, Menu.TAPAS, Menu.SALAD)),
-    MAIN_DISH(Arrays.asList(Menu.T_STAKE, Menu.BARBEQUE_RIP, Menu.SEAFOOD_PASTA, Menu.CHRISTMAS_PASTA)),
-    DESSERT(Arrays.asList(Menu.CHOCO_CAKE, Menu.ICE_CREAM)),
-    BEVERAGE(Arrays.asList(Menu.ZERO_COKE, Menu.RED_WINE, Menu.CHAMPAIGN)),
-    NONE(Collections.EMPTY_LIST);
+    APPETIZER("에피타이저", Arrays.asList(Menu.SOUP, Menu.TAPAS, Menu.SALAD)),
+    MAIN_DISH("메인", Arrays.asList(Menu.T_STAKE, Menu.BARBEQUE_RIB, Menu.SEAFOOD_PASTA, Menu.CHRISTMAS_PASTA)),
+    DESSERT("디저트", Arrays.asList(Menu.CHOCO_CAKE, Menu.ICE_CREAM)),
+    BEVERAGE("음료", Arrays.asList(Menu.ZERO_COKE, Menu.RED_WINE, Menu.CHAMPAGNE)),
+    NONE("해당없음", Collections.EMPTY_LIST);
 
+    private final String groupName;
     private final List<Menu> menuNames;
 
-    MenuGroup(List<Menu> menuNames) {
+    MenuGroup(String groupName, List<Menu> menuNames) {
+        this.groupName = groupName;
         this.menuNames = menuNames;
+    }
+
+    public String getGroupName() {
+        return groupName;
     }
     public List<Menu> getList() {
         return menuNames;
@@ -24,22 +30,29 @@ public enum MenuGroup {
     public static Map<MenuGroup, Integer> getCountsByGroup(Map<Menu, Integer> orderTable) {
         Map<MenuGroup, Integer> countTable = initializeCountTable();
         for (Menu menuName : orderTable.keySet()) {
-            MenuGroup group = findMenuGroup(menuName);
+            MenuGroup group = findMenuGroup(menuName.getName());
             countTable.put(group, countTable.getOrDefault(group, 0)+orderTable.get(menuName));
         }
         return countTable;
     }
-    public static MenuGroup findMenuGroup(Menu menu) {
-        return Arrays.stream(MenuGroup.values())
-                .filter(menuGroup -> menuGroup.menuNames.contains(menu))
-                .findFirst()
-                .orElse(NONE);
-    }
     private static Map<MenuGroup, Integer> initializeCountTable() {
         Map<MenuGroup, Integer> countTable = new EnumMap<>(MenuGroup.class);
         for (MenuGroup group : MenuGroup.values()) {
+            if (group == NONE) {
+                continue;
+            }
             countTable.put(group, 0);
         }
         return countTable;
+    }
+    public static MenuGroup findMenuGroup(String name) {
+        return Arrays.stream(MenuGroup.values())
+                .filter(menuGroup -> menuGroup.hasMenu(name))
+                .findFirst()
+                .orElse(NONE);
+    }
+    private boolean hasMenu(String name) {
+        return menuNames.stream()
+                .anyMatch(menu -> menu.equals(Menu.findMenuName(name)));
     }
 }
