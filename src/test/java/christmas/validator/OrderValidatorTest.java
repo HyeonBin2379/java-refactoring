@@ -24,10 +24,10 @@ class OrderValidatorTest {
     @DisplayName("주문한 메뉴 개수의 총합이 20개를 초과하면 예외 발생")
     @ValueSource(strings = {"초코케이크-5,아이스크림-10,제로콜라-10", "크리스마스파스타-21"})
     void validateOverOrderLimits_test(String input) {
-        Order result = new Order();
-        result.setAllOrderToken(Arrays.asList(input.split(",")));
+        Order given = new Order();
+        given.setAllOrderToken(Arrays.asList(input.split(",")));
 
-        assertThatThrownBy(() -> validateOverOrderLimits(result.getTotalCounts()))
+        assertThatThrownBy(() -> validateOverOrderLimits(given.getTotalCounts()))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
