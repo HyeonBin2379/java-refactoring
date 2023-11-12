@@ -46,11 +46,12 @@ public class OutputView {
     }
 
     public void printAllEventsDetails(Giveaway giveaway, EventBenefit benefit, int beforeDiscount) {
+        int totalBenefit = benefit.getTotalBenefit();
         printGiveaway(giveaway.getTable());
-        printBenefitDetails(benefit.getEventTable(), benefit.getTotalBenefit());
-        printTotalBenefit(benefit.getTotalBenefit());
+        printBenefitDetails(benefit.getEventTable(), totalBenefit);
+        printTotalBenefit(totalBenefit);
         printAfterDiscount(benefit.getAfterDiscounts(beforeDiscount, giveaway));
-        printEventBadge(benefit.getTotalBenefit());
+        printEventBadge(totalBenefit);
     }
     private void printGiveaway(Map<Menu, Integer> giveAwayMenu) {
         System.out.println(GIVEAWAY.getTitle());
