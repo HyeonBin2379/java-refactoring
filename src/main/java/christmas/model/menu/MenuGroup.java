@@ -1,5 +1,7 @@
 package christmas.model.menu;
 
+import static christmas.constants.others.MarksAndConstants.INITIAL_VALUE_ZERO;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumMap;
@@ -24,7 +26,7 @@ public enum MenuGroup {
         Map<MenuGroup, Integer> countTable = initializeCountTable();
         for (Menu menuName : orderTable.keySet()) {
             MenuGroup group = findMenuGroup(menuName.getName());
-            int counts = countTable.getOrDefault(group, 0);
+            int counts = countTable.getOrDefault(group, INITIAL_VALUE_ZERO);
             countTable.put(group, counts+orderTable.get(menuName));
         }
         return countTable;
@@ -35,7 +37,7 @@ public enum MenuGroup {
             if (group == NONE) {
                 continue;
             }
-            countTable.put(group, 0);
+            countTable.put(group, INITIAL_VALUE_ZERO);
         }
         return countTable;
     }

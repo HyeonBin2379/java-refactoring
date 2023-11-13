@@ -1,5 +1,6 @@
 package christmas.model.order;
 
+import static christmas.constants.others.MarksAndConstants.INITIAL_VALUE_ZERO;
 import static christmas.validator.OrderFormatValidator.validateHyphen;
 import static christmas.validator.OrderValidator.validateMenuName;
 import static christmas.validator.OrderValidator.validateQuantity;
@@ -36,7 +37,7 @@ public class Order {
     }
 
     public int getTotalCounts() {
-        int totalCounts = 0;
+        int totalCounts = INITIAL_VALUE_ZERO;
         for (Menu menuName : orderTable.keySet()) {
             totalCounts += orderTable.get(menuName);
         }
@@ -44,7 +45,7 @@ public class Order {
     }
 
     public int getTotalCost() {
-        int totalCost = 0;
+        int totalCost = INITIAL_VALUE_ZERO;
         for (Menu menuName : orderTable.keySet()) {
             totalCost += menuName.getPrice() * orderTable.get(menuName);
         }

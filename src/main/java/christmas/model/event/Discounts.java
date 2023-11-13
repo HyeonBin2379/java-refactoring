@@ -1,10 +1,11 @@
 package christmas.model.event;
 
-import static christmas.constants.others.Calender.FRI;
-import static christmas.constants.others.Calender.ONE_WEEK;
-import static christmas.constants.others.Calender.SAT;
-import static christmas.constants.others.Calender.SUN;
-import static christmas.constants.others.Calender.X_MAS;
+import static christmas.constants.others.DaysOfWeek.FRI;
+import static christmas.constants.others.DaysOfWeek.SAT;
+import static christmas.constants.others.DaysOfWeek.SUN;
+import static christmas.constants.others.MarksAndConstants.DISCOUNT_MIN_LIMIT;
+import static christmas.constants.others.MarksAndConstants.ONE_WEEK;
+import static christmas.constants.others.MarksAndConstants.X_MAS;
 import static christmas.model.event.EventName.CHRISTMAS;
 import static christmas.model.event.EventName.SPECIAL;
 import static christmas.model.event.EventName.WEEKDAY;
@@ -25,7 +26,7 @@ public class Discounts {
     public void getDiscountBenefit(int date, Map<EventName, Integer> events) {
         int beforeDiscounts = order.getTotalCost();
         Map<MenuGroup, Integer> countTable = MenuGroup.getCountsByGroup(order.getOrder());
-        if (beforeDiscounts >= 10000) {
+        if (beforeDiscounts >= DISCOUNT_MIN_LIMIT) {
             getDiscounts(date, events, countTable);
         }
     }
@@ -36,24 +37,24 @@ public class Discounts {
         getWeekendDiscount(date, events, counts);
     }
     public void getChristmasDiscount(int date, Map<EventName, Integer> events) {
-        if (date <= X_MAS.getDay()) {
+        if (date <= X_MAS) {
             events.put(CHRISTMAS, CHRISTMAS.getDiscount(date));
         }
     }
     public void getSpecialDiscount(int date, Map<EventName, Integer> events) {
-        if (date % ONE_WEEK.getDay() == SUN.getDay() || date == X_MAS.getDay()) {
+        if (date % ONE_WEEK == SUN.getDay() || date == X_MAS) {
             events.put(SPECIAL, SPECIAL.getDiscount(date));
         }
     }
     public void getWeekdayDiscount(int date, Map<EventName, Integer> events, Map<MenuGroup, Integer> counts) {
-        if (date % ONE_WEEK.getDay() != FRI.getDay() && date % ONE_WEEK.getDay() != SAT.getDay()) {
+        if (date % ONE_WEEK != FRI.getDay() && date % ONE_WEEK != SAT.getDay()) {
             if (counts.get(DESSERT) > 0) {
                 events.put(WEEKDAY, WEEKDAY.getDiscount(counts.get(DESSERT)));
             }
         }
     }
     public void getWeekendDiscount(int date, Map<EventName, Integer> events, Map<MenuGroup, Integer> counts) {
-        if (date % ONE_WEEK.getDay() == FRI.getDay() || date % ONE_WEEK.getDay() == SAT.getDay()) {
+        if (date % ONE_WEEK == FRI.getDay() || date % ONE_WEEK == SAT.getDay()) {
             if (counts.get(MAIN_DISH) > 0) {
                 events.put(WEEKEND, WEEKEND.getDiscount(counts.get(MAIN_DISH)));
             }

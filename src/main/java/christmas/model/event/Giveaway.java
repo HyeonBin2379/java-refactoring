@@ -1,5 +1,7 @@
 package christmas.model.event;
 
+import static christmas.constants.others.MarksAndConstants.GIVEAWAY_MIN_LIMIT;
+
 import christmas.model.menu.Menu;
 import christmas.model.order.Order;
 import java.util.EnumMap;
@@ -22,7 +24,7 @@ public class Giveaway {
         }
     }
     private boolean isMatchedCondition(Menu menuName, int quantity) {
-        return order.getTotalCost() >= 120000 && menuName != Menu.NONE && quantity > 0;
+        return order.getTotalCost() >= GIVEAWAY_MIN_LIMIT && menuName != Menu.NONE && quantity > 0;
     }
 
     public int getSum() {

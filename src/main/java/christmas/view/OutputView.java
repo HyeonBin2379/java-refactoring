@@ -13,6 +13,7 @@ import static christmas.constants.message.Title.EVENT_BADGE;
 import static christmas.constants.message.Title.GIVEAWAY;
 import static christmas.constants.message.Title.MENU;
 import static christmas.constants.message.Title.TOTAL_BENEFIT;
+import static christmas.constants.others.MarksAndConstants.MONTH;
 
 import christmas.model.event.EventBadge;
 import christmas.model.event.EventBenefit;
@@ -25,7 +26,7 @@ import java.util.Map;
 
 public class OutputView {
     public void printStart() {
-        System.out.println(START_MESSAGE);
+        System.out.printf(START_MESSAGE, MONTH);
     }
     public void printOrderDetail(OrderDate date, Order order) {
         printPreview(date.getDate());
@@ -33,7 +34,7 @@ public class OutputView {
         printBeforeDiscount(order.getTotalCost());
     }
     private void printPreview(int date) {
-        System.out.printf(PREVIEW_TITLE_FORMAT, date);
+        System.out.printf(PREVIEW_TITLE_FORMAT, MONTH, date);
     }
     private void printMenu(Map<Menu, Integer> totalOrder) {
         System.out.println(MENU.getTitle());

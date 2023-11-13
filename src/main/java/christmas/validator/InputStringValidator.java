@@ -2,6 +2,8 @@ package christmas.validator;
 
 import static christmas.constants.message.ErrorMessage.BLANK_INPUT;
 import static christmas.constants.message.ErrorMessage.INVALID_ORDER;
+import static christmas.constants.others.MarksAndConstants.COMMA;
+import static christmas.constants.others.MarksAndConstants.SPACE;
 
 public class InputStringValidator {
     public static void validateDateString(String input) {
@@ -15,7 +17,7 @@ public class InputStringValidator {
         if (input.isBlank()) {
             throw new IllegalArgumentException(BLANK_INPUT.getErrorMsg());
         }
-        if (input.contains(" ")) {
+        if (input.contains(SPACE)) {
             throw new IllegalArgumentException(BLANK_INPUT.getErrorMsg());
         }
     }
@@ -26,13 +28,13 @@ public class InputStringValidator {
 
     private static void validateFirstOrLastComma(String input) {
         int lastIndex = input.length() - 1;
-        if (input.charAt(0) == ',' || input.charAt(lastIndex) == ',') {
+        if (input.charAt(0) == COMMA.charAt(0) || input.charAt(lastIndex) == COMMA.charAt(0)) {
             throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
         }
     }
 
     private static void validateContinuousComma(String input) {
-        if (input.contains(",,")) {
+        if (input.contains(COMMA+COMMA)) {
             throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
         }
     }

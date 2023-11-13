@@ -1,6 +1,8 @@
 package christmas.validator;
 
 import static christmas.constants.message.ErrorMessage.INVALID_ORDER;
+import static christmas.constants.others.MarksAndConstants.EACH_ORDER_TOKEN_COUNT;
+import static christmas.constants.others.MarksAndConstants.HYPHEN;
 
 import christmas.model.menu.Menu;
 import java.util.Map;
@@ -9,7 +11,7 @@ public class OrderFormatValidator {
     public static String[] validateHyphen(String token) {
         validateHyphenNotContained(token);
         validateContinuousHyphen(token);
-        return token.split("-", 2);
+        return token.split(HYPHEN, EACH_ORDER_TOKEN_COUNT);
     }
     private static void validateHyphenNotContained(String token) {
         if (isHyphenNotIncluded(token)) {
@@ -17,10 +19,10 @@ public class OrderFormatValidator {
         }
     }
     private static boolean isHyphenNotIncluded(String token) {
-        return !token.contains("-");
+        return !token.contains(HYPHEN);
     }
     private static void validateContinuousHyphen(String token) {
-        if (token.contains("--")) {
+        if (token.contains(HYPHEN+HYPHEN)) {
             throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
         }
     }

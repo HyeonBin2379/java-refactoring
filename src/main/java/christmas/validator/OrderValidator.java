@@ -2,6 +2,7 @@ package christmas.validator;
 
 import static christmas.constants.message.ErrorMessage.ONLY_BEVERAGE;
 import static christmas.constants.message.ErrorMessage.TOO_MANY_ORDER;
+import static christmas.constants.others.MarksAndConstants.ORDER_LIMIT;
 import static christmas.model.menu.MenuGroup.BEVERAGE;
 import static christmas.validator.OrderFormatValidator.validateDuplicatedMenu;
 import static christmas.validator.OrderFormatValidator.validatePositive;
@@ -30,7 +31,7 @@ public class OrderValidator {
         validateOnlyBeverage(orderTable);
     }
     public static void validateOverOrderLimits(int totalCounts) {
-        if (totalCounts > 20) {
+        if (totalCounts > ORDER_LIMIT) {
             throw new IllegalArgumentException(TOO_MANY_ORDER.getErrorMsg());
         }
     }
