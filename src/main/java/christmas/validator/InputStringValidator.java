@@ -14,9 +14,15 @@ public class InputStringValidator {
         validateComma(input);
     }
     public static void validateBlankOrSpace(String input) {
+        validateBlank(input);
+        validateSpace(input);
+    }
+    private static void validateBlank(String input) {
         if (input.isBlank()) {
             throw new IllegalArgumentException(BLANK_INPUT.getErrorMsg());
         }
+    }
+    private static void validateSpace(String input) {
         if (input.contains(SPACE)) {
             throw new IllegalArgumentException(BLANK_INPUT.getErrorMsg());
         }
