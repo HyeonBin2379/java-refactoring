@@ -6,7 +6,6 @@ import static christmas.validator.OrderValidator.validateQuantity;
 import static christmas.validator.OrderValidator.validateTotalOrder;
 
 import christmas.model.menu.Menu;
-import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +52,7 @@ public class Order {
     }
 
     public Map<Menu, Integer> getOrder() {
-        return Collections.unmodifiableMap(orderTable);
+        return orderTable;
     }
 
     public void clearOrder() {

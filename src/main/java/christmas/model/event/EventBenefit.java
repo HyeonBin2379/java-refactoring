@@ -2,33 +2,26 @@ package christmas.model.event;
 
 import static christmas.model.event.EventName.GIVEAWAY;
 
-import christmas.model.menu.Menu;
-import christmas.model.menu.MenuGroup;
-import java.util.Collections;
+import christmas.model.order.Order;
 import java.util.EnumMap;
 import java.util.Map;
 
 public class EventBenefit {
 
-    private final int date;
+    private final Discounts discount;
     private final Map<EventName, Integer> events;
-    private final Map<Menu, Integer> totalOrder;
 
-    public EventBenefit(int date, Map<Menu, Integer> totalOrder) {
-        this.date = date;
+    public EventBenefit(Order totalOrder) {
+        this.discount = new Discounts(totalOrder);
         this.events = new EnumMap<>(EventName.class);
-        this.totalOrder = totalOrder;
     }
 
-    public void addBenefit(int beforeDiscount, Giveaway giveaway) {
-        addEventDiscount(beforeDiscount);
+    public void addBenefit(int date, Giveaway giveaway) {
+        addEventDiscount(date);
         addEventGiveaway(giveaway);
     }
-    public void addEventDiscount(int beforeDiscount) {
-        Map<MenuGroup, Integer> countTable = MenuGroup.getCountsByGroup(totalOrder);
-        if (beforeDiscount >= 10000) {
-            Discounts.getBenefit(date, events, countTable);
-        }
+    public void addEventDiscount(int date) {
+        discount.getDiscountBenefit(date, events);
     }
     public void addEventGiveaway(Giveaway giveaway) {
         if (giveaway.getSum() > 0) {
@@ -47,6 +40,6 @@ public class EventBenefit {
         return beforeDiscount - getTotalBenefit() + giveaway.getSum();
     }
     public Map<EventName, Integer> getEventTable() {
-        return Collections.unmodifiableMap(events);
+        return events;
     }
 }

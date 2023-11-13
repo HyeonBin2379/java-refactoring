@@ -41,7 +41,6 @@ public class OutputView {
             System.out.printf(MENU_FORMAT, menu.getName(), totalOrder.get(menu));
         }
     }
-
     private void printBeforeDiscount(int totalCost) {
         System.out.println(BEFORE_DISCOUNT.getTitle());
         System.out.printf(MONEY_FORMAT, totalCost);
@@ -49,7 +48,7 @@ public class OutputView {
 
     public void printAllEventsDetails(Giveaway giveaway, EventBenefit benefit, int beforeDiscount) {
         int totalBenefit = benefit.getTotalBenefit();
-        printGiveaway(giveaway.getTable());
+        printGiveaway(giveaway.getGiveaway());
         printBenefitDetails(benefit.getEventTable(), totalBenefit);
         printTotalBenefit(totalBenefit);
         printAfterDiscount(benefit.getAfterDiscounts(beforeDiscount, giveaway));
@@ -68,7 +67,6 @@ public class OutputView {
             System.out.printf(MENU_FORMAT, menu.getName(), giveAwayMenu.get(menu));
         }
     }
-
     private void printBenefitDetails(Map<EventName, Integer> totalEvent, int totalBenefit) {
         System.out.println(BENEFIT_DETAIL.getTitle());
         if (totalEvent.isEmpty() || totalBenefit == 0) {
@@ -79,23 +77,18 @@ public class OutputView {
     }
     private void printAnyBenefitDetails(Map<EventName, Integer> totalEvent) {
         for (EventName eventName : totalEvent.keySet()) {
-            if (totalEvent.get(eventName) == 0)
-                continue;
             String money = String.format(MONEY_FORMAT, totalEvent.get(eventName));
             System.out.printf(BENEFIT_FORMAT, eventName.getEventName(), money);
         }
     }
-
     private void printTotalBenefit(int totalBenefit) {
         System.out.println(TOTAL_BENEFIT.getTitle());
         System.out.printf(MONEY_FORMAT, totalBenefit);
     }
-
     private void printAfterDiscount(int totalCost) {
         System.out.println(AFTER_DISCOUNT.getTitle());
         System.out.printf(MONEY_FORMAT, totalCost);
     }
-
     private void printEventBadge(int totalBenefit) {
         System.out.println(EVENT_BADGE.getTitle());
         EventBadge badge = EventBadge.getBadge(totalBenefit);

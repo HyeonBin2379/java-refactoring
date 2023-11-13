@@ -20,16 +20,16 @@ public class BenefitController {
     }
 
     public void finish() {
-        getEventBenefits();
+        getTotalEventResults();
         Console.close();
     }
-    private void getEventBenefits() {
+    private void getTotalEventResults() {
         int beforeDiscount = totalOrder.getTotalCost();
-        Giveaway giveaway = new Giveaway(beforeDiscount);
-        EventBenefit benefit = new EventBenefit(date.getDate(), totalOrder.getOrder());
+        Giveaway giveaway = new Giveaway(totalOrder);
+        EventBenefit benefit = new EventBenefit(totalOrder);
 
         giveaway.addMenu("샴페인", 1);
-        benefit.addBenefit(beforeDiscount, giveaway);
+        benefit.addBenefit(date.getDate(), giveaway);
         outputView.printAllEventsDetails(giveaway, benefit, beforeDiscount);
     }
 }

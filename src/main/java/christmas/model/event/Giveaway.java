@@ -1,17 +1,17 @@
 package christmas.model.event;
 
 import christmas.model.menu.Menu;
-import java.util.Collections;
+import christmas.model.order.Order;
 import java.util.EnumMap;
 import java.util.Map;
 
 public class Giveaway {
 
-    private final int beforeDiscount;
+    private final Order order;
     private final Map<Menu, Integer> giveaway;
 
-    public Giveaway(int beforeDiscount) {
-        this.beforeDiscount = beforeDiscount;
+    public Giveaway(Order order) {
+        this.order = order;
         this.giveaway = new EnumMap<>(Menu.class);
     }
 
@@ -22,7 +22,7 @@ public class Giveaway {
         }
     }
     private boolean isMatchedCondition(Menu menuName, int quantity) {
-        return beforeDiscount >= 120000 && menuName != Menu.NONE && quantity > 0;
+        return order.getTotalCost() >= 120000 && menuName != Menu.NONE && quantity > 0;
     }
 
     public int getSum() {
@@ -34,6 +34,6 @@ public class Giveaway {
     }
 
     public Map<Menu, Integer> getGiveaway() {
-        return Collections.unmodifiableMap(giveaway);
+        return giveaway;
     }
 }
