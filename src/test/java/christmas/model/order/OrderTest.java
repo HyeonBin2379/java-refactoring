@@ -10,19 +10,26 @@ import christmas.model.menu.Menu;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 class OrderTest {
 
+    private Order sample;
+
+    @BeforeEach
+    void setUp() {
+        sample = new Order();
+    }
+
     @ParameterizedTest
     @DisplayName("주문 메뉴가 유효하면 메뉴 이름이 키, 주문 수량이 값인 Map을 생성")
     @MethodSource("sampleOrders")
     void setValidOrderTable_test(List<String> given, Map<Menu, Integer> expected) {
-        Order sample = new Order();
         sample.setValidOrderTable(given);
         assertEquals(sample.getOrder(), expected);
     }
@@ -31,7 +38,6 @@ class OrderTest {
     @DisplayName("주문한 메뉴 개수의 총합을 정확히 계산했는지 확인")
     @MethodSource("sampleOrderedMenu")
     void getTotalCounts_test(List<String> input, int expected) {
-        Order sample = new Order();
         sample.setValidOrderTable(input);
         assertEquals(sample.getTotalCounts(), expected);
     }
@@ -40,9 +46,14 @@ class OrderTest {
     @DisplayName("주문한 메뉴에 관한 할인 전 총 주문 금액을 정확히 계산했는지 확인")
     @MethodSource("sampleTotalOrderCost")
     void getTotalCost_test(List<String> input, int expected) {
-        Order sample = new Order();
         sample.setValidOrderTable(input);
         assertEquals(sample.getTotalCost(), expected);
+    }
+
+    @AfterEach
+    void finish() {
+        Map<Menu, Integer> result = sample.getOrder();
+        result.clear();
     }
 
     private static Stream<Arguments> sampleOrders() {
