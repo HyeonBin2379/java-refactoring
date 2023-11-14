@@ -3,7 +3,7 @@ package christmas.model.event;
 import static christmas.constants.others.DaysOfWeek.FRI;
 import static christmas.constants.others.DaysOfWeek.SAT;
 import static christmas.constants.others.DaysOfWeek.SUN;
-import static christmas.constants.others.MarksAndConstants.DISCOUNT_MIN_LIMIT;
+import static christmas.constants.others.MarksAndConstants.DISCOUNT_LOW_LIMIT;
 import static christmas.constants.others.MarksAndConstants.ONE_WEEK;
 import static christmas.constants.others.MarksAndConstants.X_MAS;
 import static christmas.model.event.EventName.CHRISTMAS;
@@ -26,7 +26,7 @@ public class Discounts {
     public void getDiscountBenefit(int date, Map<EventName, Integer> events) {
         int beforeDiscounts = order.getTotalCost();
         Map<MenuGroup, Integer> countTable = MenuGroup.getCountsByGroup(order.getOrder());
-        if (beforeDiscounts >= DISCOUNT_MIN_LIMIT) {
+        if (beforeDiscounts >= DISCOUNT_LOW_LIMIT) {
             getDiscounts(date, events, countTable);
         }
     }

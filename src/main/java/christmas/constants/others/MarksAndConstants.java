@@ -14,6 +14,6 @@ public class MarksAndConstants {
     public static final int EACH_ORDER_TOKEN_COUNT = 2;
     public static final int ORDER_LIMIT = 20;
     public static final int INITIAL_VALUE_ZERO = 0;
-    public static final int DISCOUNT_MIN_LIMIT = 10000;
-    public static final int GIVEAWAY_MIN_LIMIT = 120000;
+    public static final int DISCOUNT_LOW_LIMIT = 10000;
+    public static final int GIVEAWAY_LOW_LIMIT = 120000;
 }

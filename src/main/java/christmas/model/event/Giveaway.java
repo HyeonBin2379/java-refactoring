@@ -1,6 +1,6 @@
 package christmas.model.event;
 
-import static christmas.constants.others.MarksAndConstants.GIVEAWAY_MIN_LIMIT;
+import static christmas.constants.others.MarksAndConstants.GIVEAWAY_LOW_LIMIT;
 
 import christmas.model.menu.Menu;
 import christmas.model.order.Order;
@@ -24,7 +24,7 @@ public class Giveaway {
         }
     }
     private boolean isMatchedCondition(Menu menuName, int quantity) {
-        return order.getTotalCost() >= GIVEAWAY_MIN_LIMIT && menuName != Menu.NONE && quantity > 0;
+        return order.getTotalCost() >= GIVEAWAY_LOW_LIMIT && menuName != Menu.NONE && quantity > 0;
     }
 
     public int getSum() {
