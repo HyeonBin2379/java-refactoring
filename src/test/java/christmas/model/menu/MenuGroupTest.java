@@ -1,5 +1,6 @@
 package christmas.model.menu;
 
+import static christmas.constants.others.MarksAndConstants.COMMA;
 import static christmas.model.menu.MenuGroup.APPETIZER;
 import static christmas.model.menu.MenuGroup.BEVERAGE;
 import static christmas.model.menu.MenuGroup.DESSERT;
@@ -12,7 +13,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -21,12 +21,12 @@ import org.junit.jupiter.params.provider.MethodSource;
 class MenuGroupTest {
 
     @ParameterizedTest
-    @DisplayName("메뉴 종류별 주문 수량의 합을 올바르게 계산했는지 확인")
+    @DisplayName("메뉴 그룹별 주문 수량의 총합을 정확히 계산했는지 확인")
     @MethodSource("sampleCountsByMenuGroup")
     void getCountsByGroup_test(String input, Map<MenuGroup, Integer> expected) {
         Order given = new Order();
 
-        given.setValidOrderTable(Arrays.asList(input.split(",")));
+        given.setValidOrderTable(Arrays.asList(input.split(COMMA)));
         Map<MenuGroup, Integer> result = MenuGroup.getCountsByGroup(given.getOrder());
 
         assertEquals(result, expected);
