@@ -31,8 +31,8 @@ class EventBenefitTest {
     @ParameterizedTest
     @DisplayName("할인 전 총주문금액이 10,000원 이상 120,000원 미만일 때, 총혜택금액이 정확히 계산되는지 확인")
     @CsvSource(value = {
-            "4, 3323", "8, 3723", "25, 6423",
-            "26, 2023", "29, 2023", "31, 3023"
+            "4, -3323", "8, -3723", "25, -6423",
+            "26, -2023", "29, -2023", "31, -3023"
     })
     void getTotalBenefit_noGiveawayTest(int date, int expected) {
         orderSample.setValidOrderTable(List.of("초코케이크-1", "해산물파스타-1", "타파스-1", "제로콜라-1"));
@@ -44,8 +44,8 @@ class EventBenefitTest {
     @ParameterizedTest
     @DisplayName("할인 전 총주문금액이 120,000원 이상일 때, 총혜택금액이 정확히 계산되는지 확인")
     @CsvSource(value = {
-            "4, 28323", "8, 28723", "25, 31423",
-            "26, 27023", "29, 27023", "31, 28023"
+            "4, -28323", "8, -28723", "25, -31423",
+            "26, -27023", "29, -27023", "31, -28023"
     })
     void getTotalBenefit_test(int date, int expected) {
         orderSample.setValidOrderTable(List.of("초코케이크-1", "티본스테이크-1", "타파스-1", "레드와인-1"));

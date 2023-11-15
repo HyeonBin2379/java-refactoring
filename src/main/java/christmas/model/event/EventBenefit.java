@@ -34,13 +34,13 @@ public class EventBenefit {
     public int getTotalBenefit() {
         int totalBenefit = 0;
         for (EventName eventName : events.keySet()) {
-            totalBenefit -= events.get(eventName);
+            totalBenefit += events.get(eventName);
         }
         return totalBenefit;
     }
 
     public int getAfterDiscounts(int beforeDiscount, Giveaway giveaway) {
-        return beforeDiscount - getTotalBenefit() + giveaway.getSum();
+        return beforeDiscount + getTotalBenefit() + giveaway.getSum();
     }
 
     public Map<EventName, Integer> getEventTable() {
