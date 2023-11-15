@@ -20,9 +20,11 @@ public class EventBenefit {
         addEventDiscount(date);
         addEventGiveaway(giveaway);
     }
+
     public void addEventDiscount(int date) {
         discount.getDiscountBenefit(date, events);
     }
+
     public void addEventGiveaway(Giveaway giveaway) {
         if (giveaway.getSum() > 0) {
             events.put(GIVEAWAY, (-1) * giveaway.getSum());
@@ -36,9 +38,11 @@ public class EventBenefit {
         }
         return totalBenefit;
     }
+
     public int getAfterDiscounts(int beforeDiscount, Giveaway giveaway) {
         return beforeDiscount - getTotalBenefit() + giveaway.getSum();
     }
+
     public Map<EventName, Integer> getEventTable() {
         return events;
     }

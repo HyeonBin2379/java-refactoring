@@ -22,15 +22,17 @@ public enum MenuGroup {
         this.groupName = groupName;
         this.menuNames = menuNames;
     }
+
     public static Map<MenuGroup, Integer> getCountsByGroup(Map<Menu, Integer> orderTable) {
         Map<MenuGroup, Integer> countTable = initializeCountTable();
         for (Menu menuName : orderTable.keySet()) {
             MenuGroup group = findMenuGroup(menuName.getName());
-            int counts = countTable.getOrDefault(group, INITIAL_VALUE_ZERO);
-            countTable.put(group, counts+orderTable.get(menuName));
+            int counts = countTable.get(group);
+            countTable.put(group, counts + orderTable.get(menuName));
         }
         return countTable;
     }
+
     private static Map<MenuGroup, Integer> initializeCountTable() {
         Map<MenuGroup, Integer> countTable = new EnumMap<>(MenuGroup.class);
         for (MenuGroup group : MenuGroup.values()) {
@@ -41,12 +43,14 @@ public enum MenuGroup {
         }
         return countTable;
     }
+
     public static MenuGroup findMenuGroup(String name) {
         return Arrays.stream(MenuGroup.values())
                 .filter(menuGroup -> menuGroup.hasMenu(name))
                 .findFirst()
                 .orElse(NONE);
     }
+
     private boolean hasMenu(String name) {
         return menuNames.stream()
                 .anyMatch(menu -> menu.equals(Menu.findMenuName(name)));
@@ -55,6 +59,7 @@ public enum MenuGroup {
     public String getGroupName() {
         return groupName;
     }
+
     public List<Menu> getList() {
         return menuNames;
     }

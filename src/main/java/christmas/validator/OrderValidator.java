@@ -21,20 +21,24 @@ public class OrderValidator {
         validateDuplicatedMenu(menuName, orderName);
         return foundMenuName;
     }
+
     public static int validateQuantity(String token) {
         int quantity = validateQuantityInteger(token);
         validatePositive(quantity);
         return quantity;
     }
+
     public static void validateTotalOrder(int totalCounts, Map<Menu, Integer> orderTable) {
         validateOverOrderLimits(totalCounts);
         validateOnlyBeverage(orderTable);
     }
+
     public static void validateOverOrderLimits(int totalCounts) {
         if (totalCounts > ORDER_LIMIT) {
             throw new IllegalArgumentException(TOO_MANY_ORDER.getErrorMsg());
         }
     }
+
     public static void validateOnlyBeverage(Map<Menu, Integer> orderTable) {
         Set<Menu> beverage = new HashSet<>(BEVERAGE.getList());
         if (beverage.containsAll(orderTable.keySet())) {

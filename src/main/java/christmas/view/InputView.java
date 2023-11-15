@@ -20,6 +20,7 @@ public class InputView {
         validateDateString(input);
         return input;
     }
+
     public List<String> inputMenuOrder() {
         System.out.println(MENU_ORDER_INPUT + ORDER_EXAMPLE);
         String input = Console.readLine();

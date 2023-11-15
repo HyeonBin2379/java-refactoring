@@ -5,6 +5,7 @@ import static christmas.constants.others.MarksAndConstants.FIRST_DAY;
 import static christmas.constants.others.MarksAndConstants.LAST_DAY;
 
 public class DateValidator {
+
     public static int validateDateInteger(String input) {
         int valid;
         try {

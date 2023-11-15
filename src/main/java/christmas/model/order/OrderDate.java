@@ -4,6 +4,7 @@ import static christmas.validator.DateValidator.validateDateInteger;
 import static christmas.validator.DateValidator.validateDateRange;
 
 public class OrderDate {
+
     private int date;
 
     private int validate(String input) {
@@ -11,9 +12,11 @@ public class OrderDate {
         validateDateRange(validDate);
         return validDate;
     }
+
     public void setValidDate(String input) {
         this.date = validate(input);
     }
+
     public int getDate() {
         return date;
     }

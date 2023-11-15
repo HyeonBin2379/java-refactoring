@@ -23,11 +23,13 @@ public class Order {
         setAllOrderToken(allOrders);
         validateTotalOrder(getTotalCounts(), orderTable);
     }
+
     public void setAllOrderToken(List<String> allOrders) {
         for (String order : allOrders) {
             setEachOrderToken(order);
         }
     }
+
     private void setEachOrderToken(String order) {
         String[] tokens = validateHyphen(order);
         Menu menuName = validateMenuName(tokens[0], orderTable);

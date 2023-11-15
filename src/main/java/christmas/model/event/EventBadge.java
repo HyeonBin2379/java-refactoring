@@ -23,9 +23,11 @@ public enum EventBadge {
                 .findAny()
                 .orElse(NONE);
     }
+
     private boolean isInRange(int totalBenefit) {
         return min <= totalBenefit && totalBenefit <= max;
     }
+
     public String getName() {
         return name;
     }

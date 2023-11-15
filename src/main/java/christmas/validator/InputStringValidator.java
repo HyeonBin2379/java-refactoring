@@ -6,27 +6,33 @@ import static christmas.constants.others.MarksAndConstants.COMMA;
 import static christmas.constants.others.MarksAndConstants.SPACE;
 
 public class InputStringValidator {
+
     public static void validateDateString(String input) {
         validateBlankOrSpace(input);
     }
+
     public static void validateOrderString(String input) {
         validateBlankOrSpace(input);
         validateComma(input);
     }
+
     public static void validateBlankOrSpace(String input) {
         validateBlank(input);
         validateSpace(input);
     }
+
     private static void validateBlank(String input) {
         if (input.isBlank()) {
             throw new IllegalArgumentException(BLANK_INPUT.getErrorMsg());
         }
     }
+
     private static void validateSpace(String input) {
         if (input.contains(SPACE)) {
             throw new IllegalArgumentException(BLANK_INPUT.getErrorMsg());
         }
     }
+
     public static void validateComma(String input) {
         validateFirstOrLastComma(input);
         validateContinuousComma(input);
@@ -40,7 +46,7 @@ public class InputStringValidator {
     }
 
     private static void validateContinuousComma(String input) {
-        if (input.contains(COMMA+COMMA)) {
+        if (input.contains(COMMA + COMMA)) {
             throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
         }
     }

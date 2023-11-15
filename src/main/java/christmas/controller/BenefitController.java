@@ -23,6 +23,7 @@ public class BenefitController {
         getTotalEventResults();
         Console.close();
     }
+
     private void getTotalEventResults() {
         int beforeDiscount = totalOrder.getTotalCost();
         Giveaway giveaway = new Giveaway(totalOrder);

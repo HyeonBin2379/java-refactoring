@@ -26,6 +26,7 @@ public class OrderController {
         outputView.printOrderDetail(date, order);
         return new BenefitController(outputView, date, order);
     }
+
     private void getValidDate() {
         while (true) {
             try {
@@ -36,6 +37,7 @@ public class OrderController {
             }
         }
     }
+
     private void getValidOrder() {
         while (true) {
             try {

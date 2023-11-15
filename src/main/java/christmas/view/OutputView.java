@@ -25,23 +25,28 @@ import christmas.model.order.OrderDate;
 import java.util.Map;
 
 public class OutputView {
+
     public void printStart() {
         System.out.printf(START_MESSAGE, MONTH);
     }
+
     public void printOrderDetail(OrderDate date, Order order) {
         printPreview(date.getDate());
         printMenu(order.getOrder());
         printBeforeDiscount(order.getTotalCost());
     }
+
     private void printPreview(int date) {
         System.out.printf(PREVIEW_TITLE_FORMAT, MONTH, date);
     }
+
     private void printMenu(Map<Menu, Integer> totalOrder) {
         System.out.println(MENU.getTitle());
         for (Menu menu : totalOrder.keySet()) {
             System.out.printf(MENU_FORMAT, menu.getName(), totalOrder.get(menu));
         }
     }
+
     private void printBeforeDiscount(int totalCost) {
         System.out.println(BEFORE_DISCOUNT.getTitle());
         System.out.printf(MONEY_FORMAT, totalCost);
@@ -55,6 +60,7 @@ public class OutputView {
         printAfterDiscount(benefit.getAfterDiscounts(beforeDiscount, giveaway));
         printEventBadge(totalBenefit);
     }
+
     private void printGiveaway(Map<Menu, Integer> giveAwayMenu) {
         System.out.println(GIVEAWAY.getTitle());
         if (giveAwayMenu.isEmpty()) {
@@ -63,11 +69,13 @@ public class OutputView {
         }
         printAnyGiveawayMenu(giveAwayMenu);
     }
+
     private void printAnyGiveawayMenu(Map<Menu, Integer> giveAwayMenu) {
         for (Menu menu : giveAwayMenu.keySet()) {
             System.out.printf(MENU_FORMAT, menu.getName(), giveAwayMenu.get(menu));
         }
     }
+
     private void printBenefitDetails(Map<EventName, Integer> totalEvent, int totalBenefit) {
         System.out.println(BENEFIT_DETAIL.getTitle());
         if (totalEvent.isEmpty() || totalBenefit == 0) {
@@ -76,20 +84,24 @@ public class OutputView {
         }
         printAnyBenefitDetails(totalEvent);
     }
+
     private void printAnyBenefitDetails(Map<EventName, Integer> totalEvent) {
         for (EventName eventName : totalEvent.keySet()) {
             String money = String.format(MONEY_FORMAT, totalEvent.get(eventName));
             System.out.printf(BENEFIT_FORMAT, eventName.getEventName(), money);
         }
     }
+
     private void printTotalBenefit(int totalBenefit) {
         System.out.println(TOTAL_BENEFIT.getTitle());
         System.out.printf(MONEY_FORMAT, totalBenefit);
     }
+
     private void printAfterDiscount(int totalCost) {
         System.out.println(AFTER_DISCOUNT.getTitle());
         System.out.printf(MONEY_FORMAT, totalCost);
     }
+
     private void printEventBadge(int totalBenefit) {
         System.out.println(EVENT_BADGE.getTitle());
         EventBadge badge = EventBadge.getBadge(totalBenefit);

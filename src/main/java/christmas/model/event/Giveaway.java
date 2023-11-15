@@ -23,6 +23,7 @@ public class Giveaway {
             giveaway.put(menuName, quantity);
         }
     }
+
     private boolean isMatchedCondition(Menu menuName, int quantity) {
         return order.getTotalCost() >= GIVEAWAY_LOW_LIMIT && menuName != Menu.NONE && quantity > 0;
     }
@@ -30,7 +31,7 @@ public class Giveaway {
     public int getSum() {
         int totalGiveAway = 0;
         for (Menu menu : giveaway.keySet()) {
-            totalGiveAway += menu.getPrice()*giveaway.get(menu);
+            totalGiveAway += menu.getPrice() * giveaway.get(menu);
         }
         return totalGiveAway;
     }

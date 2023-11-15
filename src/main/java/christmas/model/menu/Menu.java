@@ -31,6 +31,7 @@ public enum Menu {
                 .findAny()
                 .orElse(NONE);
     }
+
     private boolean hasMenuName(String order) {
         return name.equals(order);
     }
@@ -38,6 +39,7 @@ public enum Menu {
     public String getName() {
         return name;
     }
+
     public int getPrice() {
         return price;
     }
