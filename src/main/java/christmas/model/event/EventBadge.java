@@ -3,9 +3,9 @@ package christmas.model.event;
 import java.util.Arrays;
 
 public enum EventBadge {
-    STAR("별", 5000, 9999),
-    TREE("트리", 10000, 19999),
-    SANTA("산타", 20000, Integer.MAX_VALUE),
+    STAR("별", -9999, -5000),
+    TREE("트리", -19999, -10000),
+    SANTA("산타", Integer.MIN_VALUE, -20000),
     NONE("없음", 0, 0);
     private final String name;
     private final int min;

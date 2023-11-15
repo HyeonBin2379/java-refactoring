@@ -104,7 +104,7 @@ public class OutputView {
 
     private void printEventBadge(int totalBenefit) {
         System.out.println(EVENT_BADGE.getTitle());
-        EventBadge badge = EventBadge.getBadge(totalBenefit*(-1));
+        EventBadge badge = EventBadge.getBadge(totalBenefit);
         System.out.println(badge.getName());
     }
 }
