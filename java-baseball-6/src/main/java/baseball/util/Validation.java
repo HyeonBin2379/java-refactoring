@@ -1,5 +1,15 @@
 package baseball.util;
 
+import static baseball.Constants.ErrorMessage.BLANK_INPUT;
+import static baseball.Constants.ErrorMessage.DUPLICATED_NUMBER;
+import static baseball.Constants.ErrorMessage.INVALID_MENU;
+import static baseball.Constants.ErrorMessage.NOT_INTEGER;
+import static baseball.Constants.ErrorMessage.NOT_THREE_DIGIT;
+import static baseball.Constants.ErrorMessage.SPACE_INCLUDED;
+import static baseball.Constants.ErrorMessage.ZERO_INCLUDED;
+import static baseball.Constants.MenuNumber.NONE;
+
+import baseball.Constants.MenuNumber;
 import java.util.List;
 
 public class Validation {
@@ -10,12 +20,12 @@ public class Validation {
     }
     private static void validateBlank(String input) {
         if (input.isBlank()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(BLANK_INPUT.getMessage());
         }
     }
     private static void validateSpace(String input) {
         if (input.contains(" ")) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(SPACE_INCLUDED.getMessage() + input);
         }
     }
 
@@ -23,7 +33,7 @@ public class Validation {
         try {
             int temp = Integer.parseInt(input); // 입력값에 문자가 섞이면 Exception 발생
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("This input is not Integer: " + input);
+            throw new IllegalArgumentException(NOT_INTEGER.getMessage() + input);
         }
     }
 
@@ -32,25 +42,33 @@ public class Validation {
         validateNonZero(input);   // 0 포함 여부 검사
     }
 
-    // 입력된 문자열의 길이가 3인지 검사
     private static void validateUserNumberLength(String input) {
         if (input.length() != 3) {
-            throw new IllegalArgumentException("Invalid input length.");
+            throw new IllegalArgumentException(NOT_THREE_DIGIT.getMessage() + input);
         }
     }
 
-    // 입력된 문자열에 0이 포함되었는지 검사
-    // 이 유효성검사는 3자리 숫자인 입력값을 대상으로 수행
-    // 따라서 이 검사를 통과하는 문자열은 1~9 사이 숫자로만 구성된 3자리 수
     private static void validateNonZero(String input) {
         if (input.contains("0")) {
-            throw new IllegalArgumentException("This input includes zero.");
+            throw new IllegalArgumentException(ZERO_INCLUDED.getMessage() + input);
         }
     }
 
     public static void validateDuplicatedNumber(List<Integer>user, int num) {
         if (user.contains(num)) {
-            throw new IllegalArgumentException("This is already contained: " + num);
+            throw new IllegalArgumentException(DUPLICATED_NUMBER.getMessage() + num);
         }
+    }
+
+    public static int validateMenuNumber(String input) {
+        validateInteger(input);
+        return validateExistMenu(input);
+    }
+    private static int validateExistMenu(String input) {
+        int menuNum = Integer.parseInt(input);
+        if (MenuNumber.findMenuNumber(menuNum) == NONE) {
+            throw new IllegalArgumentException(INVALID_MENU.getMessage() + menuNum);
+        }
+        return menuNum;
     }
 }
