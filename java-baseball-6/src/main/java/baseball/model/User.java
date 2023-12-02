@@ -17,12 +17,12 @@ public class User {
     public void setUser(String input) {
         validateUserNumber(input);
         addValidNumberToArray(input);
+        validateDuplicatedNumber(user);
     }
 
-    private void addValidNumberToArray(String input) {
+    public void addValidNumberToArray(String input) {
         for (String str : input.split("")) {
             int num = Integer.parseInt(str);
-            validateDuplicatedNumber(user, num);
             user.add(num);
         }
     }

@@ -10,7 +10,9 @@ import static baseball.Constants.ErrorMessage.ZERO_INCLUDED;
 import static baseball.Constants.MenuNumber.NONE;
 
 import baseball.Constants.MenuNumber;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Validation {
 
@@ -54,9 +56,10 @@ public class Validation {
         }
     }
 
-    public static void validateDuplicatedNumber(List<Integer>user, int num) {
-        if (user.contains(num)) {
-            throw new IllegalArgumentException(DUPLICATED_NUMBER.getMessage() + num);
+    public static void validateDuplicatedNumber(List<Integer> user) {
+        Set<Integer> temp = new HashSet<>(user);
+        if (temp.size() != user.size()) {
+            throw new IllegalArgumentException(DUPLICATED_NUMBER.getMessage());
         }
     }
 

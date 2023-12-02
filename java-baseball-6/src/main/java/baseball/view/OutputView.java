@@ -17,7 +17,7 @@ public class OutputView {
         printNothing(balls, strikes);
         printBall(balls);
         printStrikes(strikes);
-        System.out.println(output);   // 결과 출력 후 줄바꿈용
+        System.out.println(output);
     }
 
     private void printNothing(int balls, int strikes) {
