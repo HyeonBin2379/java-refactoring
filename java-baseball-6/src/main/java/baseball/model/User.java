@@ -16,14 +16,15 @@ public class User {
 
     public void setUser(String input) {
         validateUserNumber(input);
-        for (String str : input.split("")) {
-            addNumberToArray(Integer.parseInt(str));
-        }
+        addValidNumberToArray(input);
     }
 
-    private void addNumberToArray(int num) {
-        validateDuplicatedNumber(user, num);
-        user.add(num);
+    private void addValidNumberToArray(String input) {
+        for (String str : input.split("")) {
+            int num = Integer.parseInt(str);
+            validateDuplicatedNumber(user, num);
+            user.add(num);
+        }
     }
 
     public void clearUser() {
