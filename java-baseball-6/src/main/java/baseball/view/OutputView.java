@@ -1,33 +1,39 @@
 package baseball.view;
 
+import static baseball.Constants.GameIOMessage.GAME_OVER;
+import static baseball.Constants.GameIOMessage.THREE_STRIKES;
+
 public class OutputView {
+    private StringBuilder output;
     public void printIfAnswer() {
-        System.out.println("3스트라이크");
-        System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        output = new StringBuilder();
+        output.append(THREE_STRIKES);
+        output.append(GAME_OVER);
+        System.out.print(output);
     }
 
     public void printIfNotAnswer(int balls, int strikes) {
+        output = new StringBuilder();
         printNothing(balls, strikes);
         printBall(balls);
         printStrikes(strikes);
-        System.out.println();   // 결과 출력 후 줄바꿈용
+        System.out.println(output);   // 결과 출력 후 줄바꿈용
     }
 
     private void printNothing(int balls, int strikes) {
         if (balls == 0 && strikes == 0) {
-            System.out.print("낫싱");
+            output.append("낫싱");
         }
     }
 
-    // 볼 또는 스트라이크 개수 출력(둘 다 1개 이상일 시 모두 출력)
     private void printBall(int balls) {
         if (balls > 0) {
-            System.out.print(balls + "볼 ");
+            output.append(balls).append("볼 ");
         }
     }
     private void printStrikes(int strikes) {
         if (strikes > 0) {
-            System.out.print(strikes + "스트라이크");
+            output.append(strikes).append("스트라이크");
         }
     }
 }
