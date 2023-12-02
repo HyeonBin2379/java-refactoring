@@ -19,4 +19,7 @@ public enum MenuNumber {
                 .orElse(NONE);
     }
 
+    public int getMenuNum() {
+        return menuNum;
+    }
 }
