@@ -19,15 +19,12 @@ import java.util.List;
 import java.util.Set;
 
 public class Validation {
-
     public static int validateInteger(String input) {
-        int temp;
         try {
-            temp = Integer.parseInt(input);
+            return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(String.format(ERROR_FORMAT + NOT_INTEGER + input));
         }
-        return temp;
     }
 
     public static void validatePositiveNumber(int input) {

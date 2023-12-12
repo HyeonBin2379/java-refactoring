@@ -1,15 +1,12 @@
 package lotto.view;
 
-import static lotto.constants.ErrorMessage.BLANK_INPUT;
-import static lotto.constants.ErrorMessage.ERROR_FORMAT;
-import static lotto.constants.ErrorMessage.SPACE_INCLUDED;
 import static lotto.constants.LottoIOMessage.BONUS_NUM_INPUT;
 import static lotto.constants.LottoIOMessage.BUYING_COST_INPUT;
 import static lotto.constants.LottoIOMessage.WINNING_NUM_INPUT;
-import static lotto.constants.MarksAndConstants.SPACE;
+import static lotto.util.InputValidation.validateInput;
+import static lotto.util.InputValidation.validateInputWinnerNum;
 
 import camp.nextstep.edu.missionutils.Console;
-import lotto.util.Validation;
 
 public class InputView {
 
@@ -32,28 +29,6 @@ public class InputView {
         String inputBonusNum = Console.readLine();
         validateInput(inputBonusNum);
         return inputBonusNum;
-    }
-
-    public void validateInput(String input) {
-        validateBlankInput(input);
-        validateSpaceChar(input);
-    }
-
-    public void validateInputWinnerNum(String input) {
-        validateInput(input);
-        Validation.validateComma(input);
-    }
-
-    private void validateBlankInput(String input) {
-        if (input.isBlank()) {
-            throw new IllegalArgumentException(String.format(ERROR_FORMAT + BLANK_INPUT));
-        }
-    }
-
-    private void validateSpaceChar(String input) {
-        if (input.contains(SPACE)) {
-            throw new IllegalArgumentException(String.format(ERROR_FORMAT + SPACE_INCLUDED));
-        }
     }
 
     public void finishInput() {
