@@ -2,7 +2,6 @@ package lotto.util;
 
 import static lotto.constants.ErrorMessage.*;
 import static lotto.util.Validation.validateBonusNumDuplicated;
-import static lotto.util.Validation.validateComma;
 import static lotto.util.Validation.validateDivisibleByLottoPrice;
 import static lotto.util.Validation.validateDuplicatedSixNumber;
 import static lotto.util.Validation.validateInteger;
@@ -48,15 +47,6 @@ class ValidationTest {
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> validateDivisibleByLottoPrice(input));
         assertEquals(String.format(ERROR_FORMAT + INDIVISIBLE_TO_THOUSAND + input), exception.getMessage());
         assertThatCode(() -> validateDivisibleByLottoPrice(7000)).doesNotThrowAnyException();
-    }
-
-    @ParameterizedTest
-    @DisplayName("쉼표(,)가 입력된 문자열의 처음 또는 마지막에 오거나 연속으로 사용되면 에러 메시지 출력")
-    @ValueSource(strings = {",1,2,3,4,5,6", "1,2,3,4,5,6,", "1,,2,3,4,5,6", "1,2,,3,4,,5,6"})
-    void validateComma_test(String input) {
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validateComma(input));
-        assertEquals(String.format(ERROR_FORMAT + INVALID_COMMA + input), exception.getMessage());
-        assertThatCode(() -> validateComma("1,2,3,4,5,6")).doesNotThrowAnyException();
     }
 
     @ParameterizedTest

@@ -1,6 +1,8 @@
 package lotto.util;
 
 import static lotto.constants.ErrorMessage.ERROR_FORMAT;
+import static lotto.constants.ErrorMessage.INVALID_COMMA;
+import static lotto.util.InputValidation.validateComma;
 import static lotto.util.InputValidation.validateInput;
 import static lotto.util.InputValidation.validateInputWinnerNum;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,5 +39,14 @@ class InputValidationTest {
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> validateInputWinnerNum(input));
         assertThat(exception.getMessage()).contains(ERROR_FORMAT);
         assertThatCode(() -> validateInputWinnerNum("1,2,3,4,5,6")).doesNotThrowAnyException();
+    }
+
+    @ParameterizedTest
+    @DisplayName("쉼표(,)가 입력된 문자열의 처음 또는 마지막에 오거나 연속으로 사용되면 에러 메시지 출력")
+    @ValueSource(strings = {",1,2,3,4,5,6", "1,2,3,4,5,6,", "1,,2,3,4,5,6", "1,2,,3,4,,5,6"})
+    void validateComma_test(String input) {
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validateComma(input));
+        assertEquals(String.format(ERROR_FORMAT + INVALID_COMMA + input), exception.getMessage());
+        assertThatCode(() -> validateComma("1,2,3,4,5,6")).doesNotThrowAnyException();
     }
 }
