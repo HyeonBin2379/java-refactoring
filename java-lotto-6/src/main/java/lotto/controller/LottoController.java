@@ -1,6 +1,5 @@
 package lotto.controller;
 
-import static lotto.constants.MarksAndConstants.PERCENTAGE;
 import static lotto.constants.MarksAndConstants.SINGLE_LOTTO_PRICE;
 
 import java.util.List;
@@ -8,6 +7,7 @@ import java.util.Map;
 import lotto.constants.LottoRanks;
 import lotto.model.BonusNum;
 import lotto.model.BuyingCost;
+import lotto.model.Calculating;
 import lotto.model.Comparing;
 import lotto.model.Lotto;
 import lotto.model.WinningNumbers;
@@ -80,10 +80,7 @@ public class LottoController {
     }
 
     public Double getReturnRate(Map<LottoRanks, Integer> enumMap, int cost) {
-        long totalSum = 0;
-        for (LottoRanks key : enumMap.keySet()) {
-            totalSum += key.getWinnings() * enumMap.get(key);
-        }
-        return (double) (totalSum * PERCENTAGE) / cost;
+        Calculating calculating = new Calculating(enumMap, cost);
+        return calculating.getRate();
     }
 }

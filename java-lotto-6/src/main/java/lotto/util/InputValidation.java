@@ -42,8 +42,17 @@ public class InputValidation {
     }
 
     private static void validateFirstOrLastComma(String input) {
-        int lastIndex = input.length() - 1;
-        if (input.charAt(0) == COMMA.charAt(0) || input.charAt(lastIndex) == COMMA.charAt(0)) {
+        validateFirstComma(input);
+        validateLastComma(input);
+    }
+    private static void validateFirstComma(String input) {
+        if (input.charAt(0) == COMMA.charAt(0)) {
+            throw new IllegalArgumentException(String.format(ERROR_FORMAT + INVALID_COMMA + input));
+        }
+    }
+    private static void validateLastComma(String input) {
+        int lastIndex = input.length()-1;
+        if (input.charAt(lastIndex) == COMMA.charAt(0)) {
             throw new IllegalArgumentException(String.format(ERROR_FORMAT + INVALID_COMMA + input));
         }
     }
