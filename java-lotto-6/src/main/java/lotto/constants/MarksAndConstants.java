@@ -6,6 +6,7 @@ public class MarksAndConstants {
     public static final String SPACE = " ";
     public static final String BRACKETS = "[%s]";
 
+    public static final int PERCENTAGE = 100;
     public static final int SINGLE_LOTTO_PRICE = 1000;
     public static final int MIN_LOTTO_NUM = 1;
     public static final int MAX_LOTTO_NUM = 45;

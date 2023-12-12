@@ -38,7 +38,16 @@ public class Validation {
     }
 
     public static void validateNumberRange(int input) {
-        if (input < MIN_LOTTO_NUM || input > MAX_LOTTO_NUM) {
+        validateUnderMin(input);
+        validateOverMax(input);
+    }
+    private static void validateUnderMin(int input) {
+        if (input < MIN_LOTTO_NUM) {
+            throw new IllegalArgumentException(String.format(ERROR_FORMAT + INVALID_NUMBER + input));
+        }
+    }
+    private static void validateOverMax(int input) {
+        if (input > MAX_LOTTO_NUM) {
             throw new IllegalArgumentException(String.format(ERROR_FORMAT + INVALID_NUMBER + input));
         }
     }
