@@ -1,12 +1,12 @@
 package lotto.model;
 
 import static lotto.constants.MarksAndConstants.COMMA;
+import static lotto.util.Validation.validateInteger;
+import static lotto.util.Validation.validateNumberRange;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import lotto.util.Validation;
-import lotto.view.InputView;
 
 public class WinningNumbers {
 
@@ -26,8 +26,8 @@ public class WinningNumbers {
     }
 
     public int validate(String input) {
-        int oneNum = Validation.validateInteger(input);
-        Validation.validateNumberRange(oneNum);
+        int oneNum = validateInteger(input);
+        validateNumberRange(oneNum);
         return oneNum;
     }
 

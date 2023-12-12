@@ -1,5 +1,6 @@
 package lotto.constants;
 
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -13,9 +14,9 @@ public enum LottoRanks {
 
     private final int sameNumber;
     private final boolean isSecond;
-    private final int winnings;
+    private final long winnings;
 
-    LottoRanks(int sameNumber, boolean isSecond, int winnings) {
+    LottoRanks(int sameNumber, boolean isSecond, long winnings) {
         this.sameNumber = sameNumber;
         this.isSecond = isSecond;
         this.winnings = winnings;
@@ -24,22 +25,27 @@ public enum LottoRanks {
     public int getSameNumber() {
         return sameNumber;
     }
-
     public boolean isSecond() {
         return isSecond;
     }
-
-    public int getWinnings() {
+    public long getWinnings() {
         return winnings;
     }
 
     public static LottoRanks findRank(int sameNumber, boolean isSecond) {
-        for (LottoRanks lottoRanks : LottoRanks.values()) {
-            if (lottoRanks.sameNumber == sameNumber && lottoRanks.isSecond == isSecond) {
-                return lottoRanks;
-            }
-        }
-        return NONE;
+        return Arrays.stream(LottoRanks.values())
+                .filter(lottoRanks -> LottoRanks.isRank(lottoRanks, sameNumber, isSecond))
+                .findFirst()
+                .orElse(NONE);
+    }
+    private static boolean isRank(LottoRanks rank, int sameNumber, boolean isSecond) {
+        return isSameNum(rank, sameNumber) || isSecondRank(rank, isSecond);
+    }
+    private static boolean isSameNum(LottoRanks rank, int sameNumber) {
+        return rank.sameNumber == sameNumber;
+    }
+    private static boolean isSecondRank(LottoRanks rank, boolean isSecond) {
+        return rank.isSecond == isSecond;
     }
 
     public static Map<LottoRanks, Integer> getEnumMap() {

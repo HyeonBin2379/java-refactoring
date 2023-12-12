@@ -3,12 +3,10 @@ package lotto.util;
 import static lotto.constants.ErrorMessage.DUPLICATED_NUMBER;
 import static lotto.constants.ErrorMessage.ERROR_FORMAT;
 import static lotto.constants.ErrorMessage.INDIVISIBLE_TO_THOUSAND;
-import static lotto.constants.ErrorMessage.INVALID_COMMA;
 import static lotto.constants.ErrorMessage.INVALID_NUMBER;
 import static lotto.constants.ErrorMessage.NOT_INTEGER;
 import static lotto.constants.ErrorMessage.NOT_POSITIVE;
 import static lotto.constants.ErrorMessage.NOT_SIX_NUMBERS;
-import static lotto.constants.MarksAndConstants.COMMA;
 import static lotto.constants.MarksAndConstants.MAX_LOTTO_NUM;
 import static lotto.constants.MarksAndConstants.MIN_LOTTO_NUM;
 import static lotto.constants.MarksAndConstants.NEEDED_LOTTO_NUM;
@@ -39,33 +37,17 @@ public class Validation {
         }
     }
 
-    public static void validateComma(String input) {
-        validateNotIncludedComma(input);
-        validateFirstOrLastComma(input);
-        validateContinuousComma(input);
-    }
-
-    private static void validateNotIncludedComma(String input) {
-        if (!input.contains(COMMA)) {
-            throw new IllegalArgumentException(String.format(ERROR_FORMAT + INVALID_COMMA + input));
-        }
-    }
-
-    private static void validateFirstOrLastComma(String input) {
-        int lastIndex = input.length() - 1;
-        if (input.charAt(0) == COMMA.charAt(0) || input.charAt(lastIndex) == COMMA.charAt(0)) {
-            throw new IllegalArgumentException(String.format(ERROR_FORMAT + INVALID_COMMA + input));
-        }
-    }
-
-    private static void validateContinuousComma(String input) {
-        if (input.contains(COMMA + COMMA)) {
-            throw new IllegalArgumentException(String.format(ERROR_FORMAT + INVALID_COMMA + input));
-        }
-    }
-
     public static void validateNumberRange(int input) {
-        if (input < MIN_LOTTO_NUM || input > MAX_LOTTO_NUM) {
+        validateUnderMin(input);
+        validateOverMax(input);
+    }
+    private static void validateUnderMin(int input) {
+        if (input < MIN_LOTTO_NUM) {
+            throw new IllegalArgumentException(String.format(ERROR_FORMAT + INVALID_NUMBER + input));
+        }
+    }
+    private static void validateOverMax(int input) {
+        if (input > MAX_LOTTO_NUM) {
             throw new IllegalArgumentException(String.format(ERROR_FORMAT + INVALID_NUMBER + input));
         }
     }

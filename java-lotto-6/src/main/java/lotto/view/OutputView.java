@@ -7,11 +7,7 @@ import static lotto.constants.LottoIOMessage.SAME_NUMBER_COUNT_FORMAT;
 import static lotto.constants.LottoIOMessage.TOTAL_RETURN_FORMAT;
 import static lotto.constants.LottoIOMessage.WINNING_MONEY_FORMAT;
 import static lotto.constants.LottoIOMessage.WINNING_RESULT_MSG;
-import static lotto.constants.MarksAndConstants.COMMA;
-import static lotto.constants.MarksAndConstants.LEFT_BRACKET;
-import static lotto.constants.MarksAndConstants.RIGHT_BRACKET;
-import static lotto.constants.MarksAndConstants.SPACE;
-import static lotto.constants.MarksAndConstants.START_INDEX;
+import static lotto.constants.MarksAndConstants.BRACKETS;
 
 import java.util.List;
 import java.util.Map;
@@ -44,13 +40,12 @@ public class OutputView {
     }
 
     public String convertLottoNumToString(List<Integer> oneLotto) {
-        StringBuilder lottoNum = new StringBuilder(LEFT_BRACKET + oneLotto.get(START_INDEX));
-        for (int i = START_INDEX + 1; i < oneLotto.size(); i++) {
-            lottoNum.append(COMMA + SPACE);
-            lottoNum.append(oneLotto.get(i));
+        StringBuilder lottoNum = new StringBuilder();
+        lottoNum.append(oneLotto.get(0));
+        for (int i = 1; i < oneLotto.size(); i++) {
+            lottoNum.append(", ").append(oneLotto.get(i));
         }
-        lottoNum.append(RIGHT_BRACKET);
-        return lottoNum.toString();
+        return String.format(BRACKETS, lottoNum);
     }
 
     public void printTotalResult(Map<LottoRanks, Integer> result, double returnRate) {
@@ -61,10 +56,9 @@ public class OutputView {
 
     private void printWinningLottoCounts(Map<LottoRanks, Integer> result) {
         for (LottoRanks rank : result.keySet()) {
-            if (rank == LottoRanks.NONE) {
-                continue;
+            if (rank != LottoRanks.NONE) {
+                System.out.print(convertCountsToString(rank, result.get(rank)));
             }
-            System.out.print(convertCountsToString(rank, result.get(rank)));
         }
     }
 
