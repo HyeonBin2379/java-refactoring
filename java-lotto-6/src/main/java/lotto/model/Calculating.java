@@ -1,5 +1,7 @@
 package lotto.model;
 
+import static lotto.constants.MarksAndConstants.PERCENTAGE;
+
 import java.util.Map;
 import lotto.constants.LottoRanks;
 
@@ -13,7 +15,7 @@ public class Calculating {
     }
 
     public double getRate() {
-        return calculateSum() * 100 / cost;
+        return calculateSum() * PERCENTAGE / cost;
     }
     private long calculateSum() {
         return enumMap.entrySet()

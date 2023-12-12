@@ -10,14 +10,12 @@ import lotto.constants.LottoRanks;
 
 public class Comparing {
 
-    private final List<Integer> sameNumCount;
-    private final List<Boolean> secondOrNot;
+    private final List<Integer> sameNumCount = new ArrayList<>();
+    private final List<Boolean> secondOrNot = new ArrayList<>();
     private final Lotto winningLotto;
     private final int bonusNum;
 
     public Comparing(Lotto winningLotto, int bonusNum) {
-        this.sameNumCount = new ArrayList<>();
-        this.secondOrNot = new ArrayList<>();
         this.winningLotto = winningLotto;
         this.bonusNum = bonusNum;
     }
