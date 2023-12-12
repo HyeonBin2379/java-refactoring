@@ -1,10 +1,9 @@
 package christmas.model.event;
 
-import static christmas.constants.others.DaysOfWeek.FRI;
-import static christmas.constants.others.DaysOfWeek.SAT;
-import static christmas.constants.others.DaysOfWeek.SUN;
+import static christmas.constants.others.DaysOfWeek.isFriday;
+import static christmas.constants.others.DaysOfWeek.isSaturday;
+import static christmas.constants.others.DaysOfWeek.isSunday;
 import static christmas.constants.others.MarksAndConstants.DISCOUNT_LOW_LIMIT;
-import static christmas.constants.others.MarksAndConstants.ONE_WEEK;
 import static christmas.constants.others.MarksAndConstants.X_MAS;
 import static christmas.model.event.EventName.CHRISTMAS;
 import static christmas.model.event.EventName.SPECIAL;
@@ -47,13 +46,16 @@ public class Discounts {
     }
 
     public void getSpecialDiscount(int date, Map<EventName, Integer> events) {
-        if (date % ONE_WEEK == SUN.getDay() || date == X_MAS) {
+        if (isSpecialDay(date)) {
             events.put(SPECIAL, SPECIAL.getDiscount(date));
         }
     }
+    private boolean isSpecialDay(int date) {
+        return isSunday(date) || date == X_MAS;
+    }
 
     public void getWeekdayDiscount(int date, Map<EventName, Integer> events, Map<MenuGroup, Integer> counts) {
-        if (date % ONE_WEEK != FRI.getDay() && date % ONE_WEEK != SAT.getDay()) {
+        if (!isWeekend(date)) {
             if (counts.get(DESSERT) > 0) {
                 events.put(WEEKDAY, WEEKDAY.getDiscount(counts.get(DESSERT)));
             }
@@ -61,10 +63,13 @@ public class Discounts {
     }
 
     public void getWeekendDiscount(int date, Map<EventName, Integer> events, Map<MenuGroup, Integer> counts) {
-        if (date % ONE_WEEK == FRI.getDay() || date % ONE_WEEK == SAT.getDay()) {
+        if (isWeekend(date)) {
             if (counts.get(MAIN_DISH) > 0) {
                 events.put(WEEKEND, WEEKEND.getDiscount(counts.get(MAIN_DISH)));
             }
         }
+    }
+    private boolean isWeekend(int date) {
+        return isFriday(date) || isSaturday(date);
     }
 }

@@ -25,15 +25,20 @@ public class Giveaway {
     }
 
     private boolean isMatchedCondition(Menu menuName, int quantity) {
-        return order.getTotalCost() >= GIVEAWAY_LOW_LIMIT && menuName != Menu.NONE && quantity > 0;
+        return order.getTotalCost() >= GIVEAWAY_LOW_LIMIT && isValidGiveaway(menuName, quantity);
+    }
+    private boolean isValidGiveaway(Menu menuName, int quantity) {
+        return isValidMenu(menuName) && quantity > 0;
+    }
+    private boolean isValidMenu(Menu menu) {
+        return menu != Menu.NONE;
     }
 
     public int getSum() {
-        int totalGiveAway = 0;
-        for (Menu menu : giveaway.keySet()) {
-            totalGiveAway += menu.getPrice() * giveaway.get(menu);
-        }
-        return totalGiveAway;
+        return giveaway.keySet()
+                .stream()
+                .mapToInt(menu -> menu.getPrice() * giveaway.get(menu))
+                .sum();
     }
 
     public Map<Menu, Integer> getGiveaway() {

@@ -17,7 +17,16 @@ public class DateValidator {
     }
 
     public static void validateDateRange(int date) {
-        if (date < FIRST_DAY || date > LAST_DAY) {
+        validateUnderFirstDay(date);
+        validateOverLastDay(date);
+    }
+    private static void validateUnderFirstDay(int date) {
+        if (date < FIRST_DAY) {
+            throw new IllegalArgumentException(INVALID_DATE.getErrorMsg());
+        }
+    }
+    private static void validateOverLastDay(int date) {
+        if (date > LAST_DAY) {
             throw new IllegalArgumentException(INVALID_DATE.getErrorMsg());
         }
     }

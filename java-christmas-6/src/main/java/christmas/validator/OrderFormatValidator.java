@@ -46,13 +46,11 @@ public class OrderFormatValidator {
     }
 
     public static int validateQuantityInteger(String input) {
-        int valid;
         try {
-            valid = Integer.parseInt(input);
+            return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(INVALID_ORDER.getErrorMsg());
         }
-        return valid;
     }
 
     public static void validatePositive(int quantity) {

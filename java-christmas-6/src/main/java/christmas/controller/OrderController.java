@@ -31,7 +31,7 @@ public class OrderController {
         while (true) {
             try {
                 date.setValidDate(inputView.inputDate());
-                break;
+                return;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
@@ -42,7 +42,7 @@ public class OrderController {
         while (true) {
             try {
                 order.setValidOrderTable(inputView.inputMenuOrder());
-                break;
+                return;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
                 order.clearOrder();

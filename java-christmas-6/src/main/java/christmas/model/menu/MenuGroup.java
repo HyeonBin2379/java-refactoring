@@ -42,22 +42,22 @@ public enum MenuGroup {
         }
         return countTable;
     }
-
+    private static Map<MenuGroup, Integer> initializeCountTable() {
+        Map<MenuGroup, Integer> countTable = new EnumMap<>(MenuGroup.class);
+        for (MenuGroup group : MenuGroup.values()) {
+            initializeTuple(countTable, group);
+        }
+        return countTable;
+    }
+    private static void initializeTuple(Map<MenuGroup, Integer> countTable, MenuGroup group) {
+        if (group != NONE) {
+            countTable.put(group, INITIAL_VALUE_ZERO);
+        }
+    }
     private static void getCountsByEachGroup(Menu name, Map<Menu, Integer> order, Map<MenuGroup, Integer> count) {
         MenuGroup group = findMenuGroup(name.getName());
         int eachCount = count.get(group);
         count.put(group, eachCount + order.get(name));
-    }
-
-    private static Map<MenuGroup, Integer> initializeCountTable() {
-        Map<MenuGroup, Integer> countTable = new EnumMap<>(MenuGroup.class);
-        for (MenuGroup group : MenuGroup.values()) {
-            if (group == NONE) {
-                continue;
-            }
-            countTable.put(group, INITIAL_VALUE_ZERO);
-        }
-        return countTable;
     }
 
     public static MenuGroup findMenuGroup(String name) {

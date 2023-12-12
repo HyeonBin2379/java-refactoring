@@ -78,11 +78,14 @@ public class OutputView {
 
     private void printBenefitDetails(Map<EventName, Integer> totalEvent, int totalBenefit) {
         System.out.println(BENEFIT_DETAIL.getTitle());
-        if (totalEvent.isEmpty() || totalBenefit == 0) {
+        if (hasNoBenefits(totalEvent, totalBenefit)) {
             System.out.println(NOTHING);
             return;
         }
         printAnyBenefitDetails(totalEvent);
+    }
+    private boolean hasNoBenefits(Map<EventName, Integer> totalEvent, int totalBenefit) {
+        return totalEvent.isEmpty() || totalBenefit == 0;
     }
 
     private void printAnyBenefitDetails(Map<EventName, Integer> totalEvent) {
