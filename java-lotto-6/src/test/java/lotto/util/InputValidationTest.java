@@ -1,6 +1,8 @@
-package lotto.view;
+package lotto.util;
 
 import static lotto.constants.ErrorMessage.ERROR_FORMAT;
+import static lotto.util.InputValidation.validateInput;
+import static lotto.util.InputValidation.validateInputWinnerNum;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,19 +11,20 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class InputViewTest {
-
-    private final InputView sample = new InputView();
-
+class InputValidationTest {
     @ParameterizedTest
     @DisplayName("입력된 문자열에 빈 문자열 혹은 공백문자가 사용된 문자열 입력 시, 에러 메시지 발생(공통 유효성 검사)")
     @ValueSource(strings = {"", "  ", "1 000"})
-    void validateInput_test(String input) {
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> sample.validateInput(input));
+    void validateInput_exceptionTest(String input) {
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validateInput(input));
         assertThat(exception.getMessage()).contains(ERROR_FORMAT);
-        assertThatCode(() -> sample.validateInput("1000")).doesNotThrowAnyException();
-        assertThatCode(() -> sample.validateInput("1")).doesNotThrowAnyException();
-        assertThatCode(() -> sample.validateInput("45")).doesNotThrowAnyException();
+    }
+
+    @ParameterizedTest
+    @DisplayName("입력된 문자열이 빈 문자열이 아니고, 공백문자도 없음 때 정상 실행")
+    @ValueSource(strings = {"1", "45", "1000"})
+    void validateInput_normalTest(String input) {
+        assertThatCode(() -> validateInput(input)).doesNotThrowAnyException();
     }
 
     @ParameterizedTest
@@ -31,8 +34,8 @@ class InputViewTest {
             "1,2,3,4,5,6,", " 1,2,3,4,5,6", "123456"
     })
     void validateInputWInnerNum_test(String input) {
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> sample.validateInputWinnerNum(input));
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> validateInputWinnerNum(input));
         assertThat(exception.getMessage()).contains(ERROR_FORMAT);
-        assertThatCode(() -> sample.validateInputWinnerNum("1,2,3,4,5,6")).doesNotThrowAnyException();
+        assertThatCode(() -> validateInputWinnerNum("1,2,3,4,5,6")).doesNotThrowAnyException();
     }
 }
