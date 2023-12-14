@@ -20,11 +20,11 @@ class EventBenefitTest {
     })
     void getTotalBenefit_noGiveawayTest(int date, int expected) {
         Order orderSample = new Order("초코케이크-1,해산물파스타-1,타파스-1,제로콜라-1");
-        EventBenefit eventSample = new EventBenefit(orderSample);
+        EventBenefit eventSample = new EventBenefit(date, orderSample);
         Giveaway giveawaySample = new Giveaway(orderSample);
 
         giveawaySample.addMenu("샴페인", 1);
-        eventSample.addBenefit(date, giveawaySample);
+        eventSample.addBenefit(giveawaySample);
         assertEquals(eventSample.getTotalBenefit(), expected);
     }
 
@@ -36,11 +36,11 @@ class EventBenefitTest {
     })
     void getTotalBenefit_test(int date, int expected) {
         Order orderSample = new Order("초코케이크-1,티본스테이크-1,타파스-1,레드와인-1");
-        EventBenefit eventSample = new EventBenefit(orderSample);
+        EventBenefit eventSample = new EventBenefit(date, orderSample);
         Giveaway giveawaySample = new Giveaway(orderSample);
 
         giveawaySample.addMenu("샴페인", 1);
-        eventSample.addBenefit(date, giveawaySample);
+        eventSample.addBenefit(giveawaySample);
         assertEquals(eventSample.getTotalBenefit(), expected);
     }
 
@@ -50,11 +50,11 @@ class EventBenefitTest {
     void getTotalBenefit_zeroBenefitTest(int date, String orders) {
         int expected = 0;
         Order orderSample = new Order(orders);
-        EventBenefit eventSample = new EventBenefit(orderSample);
+        EventBenefit eventSample = new EventBenefit(date, orderSample);
         Giveaway giveawaySample = new Giveaway(orderSample);
 
         giveawaySample.addMenu("샴페인", 1);
-        eventSample.addBenefit(date, giveawaySample);
+        eventSample.addBenefit(giveawaySample);
         assertEquals(eventSample.getTotalBenefit(), expected);
     }
 
@@ -66,11 +66,11 @@ class EventBenefitTest {
     })
     void getAfterDiscounts_noGiveawayTest(int date, int expected) {
         Order orderSample = new Order("초코케이크-1,해산물파스타-1,타파스-1,제로콜라-1");
-        EventBenefit eventSample = new EventBenefit(orderSample);
+        EventBenefit eventSample = new EventBenefit(date, orderSample);
         Giveaway giveawaySample = new Giveaway(orderSample);
 
         giveawaySample.addMenu("샴페인", 1);
-        eventSample.addBenefit(date, giveawaySample);
+        eventSample.addBenefit(giveawaySample);
 
         int result = eventSample.getAfterDiscounts(orderSample.getTotalCost(), giveawaySample);
         assertEquals(result, expected);
@@ -84,11 +84,11 @@ class EventBenefitTest {
     })
     void getAfterDiscounts_test(int date, int expected) {
         Order orderSample = new Order("초코케이크-1,티본스테이크-1,타파스-1,레드와인-1");
-        EventBenefit eventSample = new EventBenefit(orderSample);
+        EventBenefit eventSample = new EventBenefit(date, orderSample);
         Giveaway giveawaySample = new Giveaway(orderSample);
 
         giveawaySample.addMenu("샴페인", 1);
-        eventSample.addBenefit(date, giveawaySample);
+        eventSample.addBenefit(giveawaySample);
 
         int result = eventSample.getAfterDiscounts(orderSample.getTotalCost(), giveawaySample);
         assertEquals(result, expected);
