@@ -1,5 +1,6 @@
 package christmas.model.order;
 
+import static christmas.constants.others.MarksAndConstants.COMMA;
 import static christmas.constants.others.MarksAndConstants.INITIAL_VALUE_ZERO;
 import static christmas.validator.OrderFormatValidator.validateHyphen;
 import static christmas.validator.OrderValidator.validateMenuName;
@@ -7,26 +8,38 @@ import static christmas.validator.OrderValidator.validateQuantity;
 import static christmas.validator.OrderValidator.validateTotalOrder;
 
 import christmas.model.menu.Menu;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
 public class Order {
 
+    private final List<String> allOrders;
     private final Map<Menu, Integer> orderTable;
 
-    public Order() {
+    public Order(String input) {
+        this.allOrders = new ArrayList<>(List.of(input.split(COMMA)));
         this.orderTable = new EnumMap<>(Menu.class);
+        setValidOrderTable();
     }
 
-    public void setValidOrderTable(List<String> allOrders) {
+    public void setValidOrderTable() {
         setAllOrderToken(allOrders);
-        validateTotalOrder(getTotalCounts(), orderTable);
+        clearInvalidOrder();
     }
 
     public void setAllOrderToken(List<String> allOrders) {
         for (String order : allOrders) {
             setEachOrderToken(order);
+        }
+    }
+    public void clearInvalidOrder() {
+        try {
+            validateTotalOrder(getTotalCounts(), orderTable);
+        } catch (IllegalArgumentException e) {
+            allOrders.clear();
+            orderTable.clear();
         }
     }
 
@@ -56,9 +69,5 @@ public class Order {
 
     public Map<Menu, Integer> getOrder() {
         return orderTable;
-    }
-
-    public void clearOrder() {
-        orderTable.clear();
     }
 }
