@@ -7,22 +7,21 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class EventBenefit {
-
     private final Discounts discount;
     private final Map<EventName, Integer> events;
 
-    public EventBenefit(Order totalOrder) {
-        this.discount = new Discounts(totalOrder);
+    public EventBenefit(int orderDate, Order totalOrder) {
+        this.discount = new Discounts(orderDate, totalOrder);
         this.events = new EnumMap<>(EventName.class);
     }
 
-    public void addBenefit(int date, Giveaway giveaway) {
-        addEventDiscount(date);
+    public void addBenefit(Giveaway giveaway) {
+        addEventDiscount();
         addEventGiveaway(giveaway);
     }
 
-    public void addEventDiscount(int date) {
-        discount.getDiscountBenefit(date, events);
+    public void addEventDiscount() {
+        discount.getDiscountBenefit(events);
     }
 
     public void addEventGiveaway(Giveaway giveaway) {

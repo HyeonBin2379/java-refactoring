@@ -1,75 +1,48 @@
 package christmas.model.event;
 
-import static christmas.constants.others.DaysOfWeek.isFriday;
-import static christmas.constants.others.DaysOfWeek.isSaturday;
-import static christmas.constants.others.DaysOfWeek.isSunday;
 import static christmas.constants.others.MarksAndConstants.DISCOUNT_LOW_LIMIT;
-import static christmas.constants.others.MarksAndConstants.X_MAS;
 import static christmas.model.event.EventName.CHRISTMAS;
 import static christmas.model.event.EventName.SPECIAL;
 import static christmas.model.event.EventName.WEEKDAY;
 import static christmas.model.event.EventName.WEEKEND;
-import static christmas.model.menu.MenuGroup.DESSERT;
-import static christmas.model.menu.MenuGroup.MAIN_DISH;
 
 import christmas.model.menu.MenuGroup;
 import christmas.model.order.Order;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 public class Discounts {
 
+    private final int date;
     private final Order order;
+    private int beforeDiscount;
 
-    public Discounts(Order order) {
+    public Discounts(int date, Order order) {
+        this.date = date;
         this.order = order;
+        this.beforeDiscount = order.getTotalCost();
     }
 
-    public void getDiscountBenefit(int date, Map<EventName, Integer> events) {
-        int beforeDiscounts = order.getTotalCost();
+    public void getDiscountBenefit(Map<EventName, Integer> events) {
         Map<MenuGroup, Integer> countTable = MenuGroup.getCountsByGroup(order.getOrder());
-        if (beforeDiscounts >= DISCOUNT_LOW_LIMIT) {
-            getDiscounts(date, events, countTable);
+        if (beforeDiscount >= DISCOUNT_LOW_LIMIT) {
+            addDiscounts(events, countTable);
         }
     }
-
-    private void getDiscounts(int date, Map<EventName, Integer> events, Map<MenuGroup, Integer> counts) {
-        getChristmasDiscount(date, events);
-        getSpecialDiscount(date, events);
-        getWeekdayDiscount(date, events, counts);
-        getWeekendDiscount(date, events, counts);
+    public void addDiscounts(Map<EventName, Integer> possible, Map<MenuGroup, Integer> counts) {
+        BiConsumer<EventName, Integer> discount = (event, count) -> addPossibleDiscount(possible, event, count);
+        discount.accept(CHRISTMAS, date);
+        discount.accept(SPECIAL, date);
+        discount.accept(WEEKDAY, counts.get(MenuGroup.DESSERT));
+        discount.accept(WEEKEND, counts.get(MenuGroup.MAIN_DISH));
     }
-
-    public void getChristmasDiscount(int date, Map<EventName, Integer> events) {
-        if (date <= X_MAS) {
-            events.put(CHRISTMAS, CHRISTMAS.getDiscount(date));
-        }
-    }
-
-    public void getSpecialDiscount(int date, Map<EventName, Integer> events) {
-        if (isSpecialDay(date)) {
-            events.put(SPECIAL, SPECIAL.getDiscount(date));
-        }
-    }
-    private boolean isSpecialDay(int date) {
-        return isSunday(date) || date == X_MAS;
-    }
-
-    public void getWeekdayDiscount(int date, Map<EventName, Integer> events, Map<MenuGroup, Integer> counts) {
-        if (!isWeekend(date)) {
-            if (counts.get(DESSERT) > 0) {
-                events.put(WEEKDAY, WEEKDAY.getDiscount(counts.get(DESSERT)));
+    private void addPossibleDiscount(Map<EventName, Integer> possible, EventName event, int count) {
+        if (event.canDiscount(date)) {
+            int discount = event.getDiscount(date, count);
+            if (discount < 0) {
+                beforeDiscount += discount;
+                possible.put(event, event.getDiscount(date, count));
             }
         }
-    }
-
-    public void getWeekendDiscount(int date, Map<EventName, Integer> events, Map<MenuGroup, Integer> counts) {
-        if (isWeekend(date)) {
-            if (counts.get(MAIN_DISH) > 0) {
-                events.put(WEEKEND, WEEKEND.getDiscount(counts.get(MAIN_DISH)));
-            }
-        }
-    }
-    private boolean isWeekend(int date) {
-        return isFriday(date) || isSaturday(date);
     }
 }

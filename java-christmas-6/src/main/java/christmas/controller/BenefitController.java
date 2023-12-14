@@ -27,10 +27,10 @@ public class BenefitController {
     private void getTotalEventResults() {
         int beforeDiscount = totalOrder.getTotalCost();
         Giveaway giveaway = new Giveaway(totalOrder);
-        EventBenefit benefit = new EventBenefit(totalOrder);
+        EventBenefit benefit = new EventBenefit(date.getDate(), totalOrder);
 
         giveaway.addMenu("샴페인", 1);
-        benefit.addBenefit(date.getDate(), giveaway);
+        benefit.addBenefit(giveaway);
         outputView.printAllEventsDetails(giveaway, benefit, beforeDiscount);
     }
 }
