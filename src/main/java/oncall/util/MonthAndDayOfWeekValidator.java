@@ -12,13 +12,13 @@ public class MonthAndDayOfWeekValidator {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.");
         }
     }
     private static Month validateValidMonth(int month) {
         Month validMonth = Month.findMonth(month);
         if (validMonth == Month.NONE) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.");
         }
         return validMonth;
     }
@@ -26,7 +26,7 @@ public class MonthAndDayOfWeekValidator {
     public static DaysOfWeek validateDayOfWeek(String token) {
         DaysOfWeek validDaysOrWeek = DaysOfWeek.findDayOfWeekByString(token);
         if (validDaysOrWeek == DaysOfWeek.NONE) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.");
         }
         return validDaysOrWeek;
     }

@@ -12,12 +12,12 @@ public class InputStringValidator {
     }
     private static void validateBlank(String input) {
         if (input.isBlank()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.");
         }
     }
     private static void validateSpace(String input) {
         if (input.contains(" ")) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.");
         }
     }
 
@@ -28,17 +28,17 @@ public class InputStringValidator {
     }
     private static void validateCommaFirst(String input) {
         if (input.charAt(0) == ',') {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.");
         }
     }
     private static void validateCommaSequential(String input) {
         if (input.contains(",,")) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.");
         }
     }
     private static void validateCommaLast(String input) {
         if (input.charAt(input.length()-1) == ',') {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.");
         }
     }
 }
