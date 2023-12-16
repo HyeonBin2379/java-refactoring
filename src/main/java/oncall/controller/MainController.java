@@ -2,7 +2,6 @@ package oncall.controller;
 
 import java.util.function.Supplier;
 import oncall.model.MonthCalender;
-import oncall.model.WorkerOnCall;
 import oncall.view.InputView;
 import oncall.view.OutputView;
 
@@ -16,9 +15,8 @@ public class MainController {
 
     public void run() {
         MonthCalender calender = retryUntilSuccess(inputView::inputMonthAndDayOfWeek);
-        WorkerOnCall workerOnCall = retryUntilSuccess(inputView::inputWorkersOnCall);
-        workerOnCall.setOnCallWorker(calender);
-        outputView.printOnCall(calender, workerOnCall.getOnCallWorker());
+        //retryUntilSuccess(inputView::inputWorkersOnCall);
+        outputView.printOnCall(calender);
     }
 
     private <T> T retryUntilSuccess(Supplier<T> supplier) {
