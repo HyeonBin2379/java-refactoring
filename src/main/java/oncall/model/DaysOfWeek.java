@@ -39,6 +39,10 @@ public enum DaysOfWeek {
     private boolean isSameRemainder(int input) {
         return input % 7 == index;
     }
+
+    public static boolean isWeekend(DaysOfWeek daysOfWeek) {
+        return daysOfWeek == DaysOfWeek.SAT || daysOfWeek == DaysOfWeek.SUN;
+    }
     public String getDaysOfWeek() {
         return daysOfWeek;
     }

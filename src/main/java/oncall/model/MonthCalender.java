@@ -26,4 +26,8 @@ public class MonthCalender {
     public DaysOfWeek[] getDaysOnCall() {
         return daysOnCall;
     }
+
+    public DaysOfWeek[] getDays() {
+        return daysOnCall;
+    }
 }
