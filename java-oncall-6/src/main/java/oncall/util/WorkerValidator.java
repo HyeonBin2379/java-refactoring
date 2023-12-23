@@ -23,17 +23,17 @@ public class WorkerValidator {
         }
     }
 
-    public static void validateWorkerCount(String[] workers) {
-        validateMinLimit(workers);
-        validateMaxLimit(workers);
+    public static void validateWorkerCount(int size) {
+        validateMinLimit(size);
+        validateMaxLimit(size);
     }
-    private static void validateMinLimit(String[] workers) {
-        if (workers.length < 5) {
+    private static void validateMinLimit(int size) {
+        if (size < 5) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.");
         }
     }
-    private static void validateMaxLimit(String[] workers) {
-        if (workers.length > 35) {
+    private static void validateMaxLimit(int size) {
+        if (size > 35) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력 값입니다. 다시 입력해 주세요.");
         }
     }

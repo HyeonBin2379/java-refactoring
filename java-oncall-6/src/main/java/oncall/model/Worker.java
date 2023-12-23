@@ -16,4 +16,15 @@ public class Worker {
     public String getHolidayWorker(int index) {
         return holidayWorker[index % holidayWorker.length];
     }
+
+    public void swapWeekDay(int index1, int index2) {
+        String temp = weekdayWorker[index1 % weekdayWorker.length];
+        weekdayWorker[index1 % weekdayWorker.length] = weekdayWorker[index2 % weekdayWorker.length];
+        weekdayWorker[index2 % weekdayWorker.length] = temp;
+    }
+    public void swapHoliday(int index1, int index2) {
+        String temp = holidayWorker[index1 % weekdayWorker.length];
+        holidayWorker[index1 % weekdayWorker.length] = holidayWorker[index2 % weekdayWorker.length];
+        holidayWorker[index2 % weekdayWorker.length] = temp;
+    }
 }
