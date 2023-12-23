@@ -3,21 +3,23 @@ package oncall.model;
 import java.util.Arrays;
 
 public enum DaysOfWeek {
-    SUN("일", 0),
-    MON("월", 1),
-    TUE("화", 2),
-    WED("수", 3),
-    THU("목", 4),
-    FRI("금", 5),
-    SAT("토", 6),
-    NONE("해당없음", 7);
+    SUN("일", 0, true),
+    MON("월", 1, false),
+    TUE("화", 2, false),
+    WED("수", 3, false),
+    THU("목", 4, false),
+    FRI("금", 5, false),
+    SAT("토", 6, true),
+    NONE("해당없음", 7, false);
 
     private final String daysOfWeek;
     private final int index;
+    private final boolean weekend;
 
-    DaysOfWeek(String daysOfWeek, int index) {
+    DaysOfWeek(String daysOfWeek, int index, boolean weekend) {
         this.daysOfWeek = daysOfWeek;
         this.index = index;
+        this.weekend = weekend;
     }
 
     public static DaysOfWeek findDayOfWeekByString(String token) {
@@ -40,8 +42,8 @@ public enum DaysOfWeek {
         return input % 7 == index;
     }
 
-    public static boolean isWeekend(DaysOfWeek daysOfWeek) {
-        return daysOfWeek == DaysOfWeek.SAT || daysOfWeek == DaysOfWeek.SUN;
+    public boolean isWeekend() {
+        return weekend;
     }
     public String getDaysOfWeek() {
         return daysOfWeek;
