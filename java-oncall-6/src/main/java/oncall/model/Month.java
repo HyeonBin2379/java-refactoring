@@ -41,7 +41,10 @@ public enum Month {
     public int getDaysCount() {
         return daysCount;
     }
-    public static boolean isStationaryHoliday(int month, int day) {
-        return findMonth(month).stationaryHolidays.contains(day);
+    public static boolean isStationaryHoliday(Month month, int day) {
+        return month.isTodayStationaryHoliday(day);
+    }
+    private boolean isTodayStationaryHoliday(int today) {
+        return stationaryHolidays.contains(today);
     }
 }
