@@ -10,7 +10,7 @@ public enum Month {
     MARCH(3, 31, List.of(1)),
     APRIL(4, 30, Collections.EMPTY_LIST),
     MAY(5, 31, List.of(5)),
-    JUNE(6, 30, Collections.EMPTY_LIST),
+    JUNE(6, 30, List.of(6)),
     JULY(7, 31, Collections.EMPTY_LIST),
     AUGUST(8, 31, List.of(15)),
     SEPTEMBER(9, 30, Collections.EMPTY_LIST),
