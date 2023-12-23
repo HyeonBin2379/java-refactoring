@@ -16,16 +16,11 @@ public class MainController {
     }
 
     public void run() {
-        OnCall schedule = getOnCallSchedule();
-        schedule.setOnCall();
-        outputView.printOnCall(schedule.getSchedule());
-    }
-
-    private OnCall getOnCallSchedule() {
         MonthCalender calender = retryUntilSuccess(inputView::inputMonthAndDayOfWeek);
         Worker workers = retryUntilSuccess(inputView::inputWorkersOnCall);
         inputView.finishInput();
-        return new OnCall(calender, workers);
+        OnCall schedule = new OnCall(calender, workers);
+        outputView.printOnCall(schedule.getResult());
     }
 
     private <T> T retryUntilSuccess(Supplier<T> supplier) {
